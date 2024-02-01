@@ -1,11 +1,54 @@
+# Employee Attendance App - README
 
+## Project Name and Tagline:
+**Name:** Employee Attendance App  
+**Tagline:** Streamlining Workforce Tracking and Reporting  
+**Description:**
+The Employee Attendance App is designed to efficiently track employee time and attendance, providing project managers and general managers with a user-friendly interface. The app categorizes users into General Managers and Project Managers, where each Project Manager has control over their respective projects, manually adding attendance records. General Managers can access all projects and generate comprehensive attendance reports in Excel or PDF formats.
 
-# Employee Attendance App 
+## Team Members:
+- **Mohamed KADI**
+  - **Role:** Full Stack Developer
+  - **Why:** As a solo developer, I can seamlessly manage and implement all facets of the Employee Attendance App, spanning frontend development for user interaction to backend development for data storage and processing.
 
-## 1. Rename the document
-- Employee Attendance App 
+## Technologies:
+- **Languages:**
+  - Python (Flask for backend, HTML/CSS/JavaScript for frontend)
+- **Database:**
+  - MySQL
+- **Deployment:**
+  - Vagrant, Apache, Nginx
+- **Version Control:**
+  - Git
+- **Other Tools:**
+  - Trello for project management
 
-## 2. Architecture
+**Alternative Technology Choice:**
+- **For Frontend:** React.js instead of plain JavaScript.
+- **For Deployment:** ...
+
+**Reasoning:**
+I opted for plain JavaScript for simplicity, but React.js could offer more structured and interactive components. Apache and Nginx were chosen for their user-friendly deployment features.
+
+## Challenge Statement:
+**Problem:** Automate and streamline the attendance tracking process for workers.  
+**Not Solve:** This app will not handle payroll processing or HR functions.  
+**Users:** Aimed at managers and team leaders for efficient monitoring of worker attendance.
+
+## Risks:
+**Technical Risks:**
+- Integration issues with chosen technologies
+- Potential bugs in the attendance tracking algorithm
+
+**Non-Technical Risks:**
+- Users may resist the transition to a digital attendance system.
+
+## Infrastructure:
+- **Branching/Merging:** GitHub flow for version control.
+- **Deployment Strategy:** Continuous integration and deployment using Vagrant, Apache, Nginx.
+- **Populating App with Data:** Manual entry during the testing phase.
+
+## Architecture
 
 ### Diagram Description:
 - The Web Client communicates with the Web Server through HTTP requests.
@@ -13,7 +56,7 @@
 - The Web Server interacts with the Database to store and retrieve data using an Object-Relational Mapping (ORM) tool.
 - The API Endpoints expose functionalities related to users, general managers, project managers, projects, employees, and attendance.
 
-## 3. APIs and Methods
+## APIs and Methods
 
 ### For Web Client Communication:
 1. **/api/users**
@@ -37,7 +80,7 @@
    - Method: `getProjects()`
      - Returns a list of projects and their details.
 
-## 4. Data Modeling
+## Data Modeling
 
 ### A. Database Relationships in Employee Attendance App Schema
 
@@ -84,7 +127,7 @@
    - Many-to-One Relationship with Users Table (for General Manager)
    - Many-to-One Relationship with Users Table (for Project Manager)
 
-## 5. User Stories
+## User Stories
 
 1. **As a General Manager:**
    - View attendance reports for all projects.
@@ -106,7 +149,7 @@
    - Receive automated notifications for missing attendance records.
    - Acceptance Criteria: Customizable notification settings, real-time alerts, links within notifications.
 
-## 6. Mockups
+## Mockups
 
 - View [Mohamad Kadi's Portfolio](https://www.mohamdkadi.com/) in the Portfolio section under Employee Attendance App.
 
