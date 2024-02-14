@@ -23,6 +23,15 @@ class RegisterForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Register")
 
+    def validate_email(self, field):
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM users where email=%s", (field.data,))
+        user = cursor.fetchone()
+        cursor.close()
+        if user:
+            raise ValidationError('Email Already Taken')
+
+
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -76,7 +85,25 @@ def login():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    if 'user_id' in session:
+        user_id = session['user_id']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM users where id=%s", (user_id,))
+        user = cursor.fetchone()
+        cursor.close()
+
+        if user:
+            return render_template('dashboard.html', user=user)
+    return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash("You have been logged out successfully.")
+    return redirect(url_for('login'))
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

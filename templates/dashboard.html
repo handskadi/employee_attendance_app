@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'app.html'%}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard- EAP APP</title>
-</head>
+<div class="container">
+    <h2>Welcome to Dashboard</h2>
+    {% if user %}
+    <p>User information:</p>
+    <ul>
+        <li>Name: {{ user[1]}}</li>
+        <li>Email: {{ user[2]}}</li>
+    </ul>
+    <a href="/logout" class="btn btn-dark mt-4">Logout</a>
+    {% endif %}
 
-<body>
-    <h1>Dashboard page</h1>
+</div>
 
-</body>
-
-</html>
+{% endblock %}
