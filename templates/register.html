@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container">
-    <h2>Register form</h2>
+    <h2>Add New User:</h2>
     <form action="/register" method="POST">
         {{ form.hidden_tag() }}
         <div class="form-group">
@@ -42,7 +42,6 @@
             {% endif %}
         </div>
         {{ form.submit(class="btn btn-dark mt-4")}}
-        <a href="/login" class="btn btn-info mt-4">Login</a>
     </form>
 </div>
 

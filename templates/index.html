@@ -4,5 +4,10 @@
 <h1>EAP APP</h1>
 <p>Welcome to Attendance Employees App</p>
 
+{% if 'user_id' in session %}
+<a href="{{ url_for('dashboard') }}" class="btn btn-primary">Dashboard</a>
+{% else %}
+<a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+{% endif %}
 
 {% endblock %}

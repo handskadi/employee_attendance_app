@@ -9,7 +9,8 @@
         <li>Name: {{ user[1]}}</li>
         <li>Email: {{ user[2]}}</li>
     </ul>
-    <a href="/logout" class="btn btn-dark mt-4">Logout</a>
+    <a href="/logout" class="btn btn-danger mt-4">Logout</a>
+    <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Add User</a>
     {% endif %}
 
 </div>

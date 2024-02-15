@@ -26,7 +26,7 @@ class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Register")
+    submit = SubmitField("Add User")
 
     def validate_email(self, field):
         cursor = mysql.connection.cursor()
@@ -48,26 +48,32 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        name = form.name.data
-        email = form.email.data
-        password = form.password.data 
+    if 'user_id' in session:
 
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        form = RegisterForm()
+        if form.validate_on_submit():
+            name = form.name.data
+            email = form.email.data
+            password = form.password.data 
 
-        # Store data into database
-        cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO users (name, email, password) VALUES (%s,%s,%s)", (name, email, hashed_password))
-        mysql.connection.commit()
-        cursor.close()
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-        return redirect(url_for('login'))
+            # Store data into database
+            cursor = mysql.connection.cursor()
+            cursor.execute("INSERT INTO users (name, email, password) VALUES (%s,%s,%s)", (name, email, hashed_password))
+            mysql.connection.commit()
+            cursor.close()
 
-    return render_template('register.html', form=form)
+            return redirect(url_for('dashboard'))
+
+        return render_template('register.html', form=form)
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    if 'user_id' in session:
+        return redirect(url_for('dashboard'))  # Redirect to dashboard if already logged in
+
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -84,8 +90,7 @@ def login():
         else:
             flash("Login fail. Pleae check your email and password")
             return redirect(url_for('login'))
-
-
+    
     return render_template('login.html', form=form)
 
 @app.route('/dashboard')
