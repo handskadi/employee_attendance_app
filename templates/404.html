@@ -1,0 +1,13 @@
+{% extends 'app.html'%}
+{% block content %}
+
+<h1>Oops 3yn Myk </h1>
+<p>Page not Found</p>
+<a href="{{ url_for('index') }}" class="btn btn-primary">Home</a>
+{% if 'user_id' in session %}
+<a href="{{ url_for('dashboard') }}" class="btn btn-primary">Dashboard</a>
+{% else %}
+<a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+{% endif %}
+
+{% endblock %}

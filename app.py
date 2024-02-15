@@ -48,7 +48,11 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
-    if 'user_id' in session:
+    # Read data From database
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM users WHERE email=%s", ('handskadi@gmail.com',))
+    user = cursor.fetchone()
+    if user and 'user_id' in session and session['user_id'] == 1:
 
         form = RegisterForm()
         if form.validate_on_submit():
@@ -101,10 +105,14 @@ def dashboard():
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM users where id=%s", (user_id,))
         user = cursor.fetchone()
+
+        # Fetch all users' data
+        cursor.execute("SELECT * FROM users")
+        all_users = cursor.fetchall()
         cursor.close()
 
         if user:
-            return render_template('dashboard.html', user=user)
+            return render_template('dashboard.html', user=user, all_users=all_users)
     return redirect(url_for('login'))
 
 @app.route('/logout')
@@ -113,7 +121,10 @@ def logout():
     flash("You have been logged out successfully.")
     return redirect(url_for('login'))
 
-
+# Custom error handler for 404 errors
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

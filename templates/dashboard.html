@@ -9,8 +9,34 @@
         <li>Name: {{ user[1]}}</li>
         <li>Email: {{ user[2]}}</li>
     </ul>
+    {% if session['user_id'] == 1%}
+    <p>All Users:</p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_data in all_users %}
+            <tr>
+                <th scope="row">{{ user_data[0] }}</th>
+                <td>{{ user_data[1] }}</td>
+                <td>{{ user_data[2] }}</td>
+                <td>TO-DO</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
     <a href="/logout" class="btn btn-danger mt-4">Logout</a>
+    {% if session['user_id'] == 1%}
     <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Add User</a>
+    {% endif %}
     {% endif %}
 
 </div>
