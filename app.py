@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, DateField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, DateField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
 from flask_mysqldb import MySQL
@@ -24,9 +24,30 @@ mysql = MySQL(app)
 
 class CreateForm(FlaskForm):
     project_name = StringField("Project Name", validators=[DataRequired()])
-    is_active = BooleanField("Is Active", validators=[DataRequired()])
+    is_active = BooleanField("Active")
     description = StringField("Description", validators=[DataRequired()])
+    submit = SubmitField("Create Project")
 
+@app.route('/project', methods=['GET','POST'])
+def project():
+    # Read data From database
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM user WHERE email=%s", ('wafa@marouani.com',))
+    user = cursor.fetchone()
+    if user and 'user_id' in session and session['user_id'] == 1:
+        form = CreateForm()
+        if form.validate_on_submit():
+            project_name = form.project_name.data
+            is_active = form.is_active.data
+            description = form.description.data
+            cursor = mysql.connection.cursor()
+            print("I got here")
+            cursor.execute("INSERT INTO project (project_name, is_active, description) VALUES (%s,%s,%s)", (project_name, is_active, description))
+            mysql.connection.commit()
+            cursor.close()
+            return redirect(url_for('dashboard'))
+        return render_template('project.html', form=form)
+    return redirect(url_for('login'))
 
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
@@ -40,7 +61,7 @@ class RegisterForm(FlaskForm):
     # retrive  all projects
     with app.app_context():
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM project")
+        cursor.execute("SELECT * FROM project WHERE is_active='1'")
         projects = cursor.fetchall()  
         cursor.close()
         project_choices =  [(str(project[0]), project[1]) for project in projects]
@@ -72,26 +93,6 @@ class LoginForm(FlaskForm):
 @app.route('/')
 def index():
     return render_template('index.html')
-
-@app.route('/project', methods=['GET','POST'])
-def project():
-    # Read data From database
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM user WHERE email=%s", ('wafa@marouani.com',))
-    user = cursor.fetchone()
-    if user and 'user_id' in session and session['user_id'] == 1:
-        form = CreateForm()
-        if form.validate_on_submit():
-            project_name = form.project_name.data
-            description = form.description.data
-
-            cursor = mysql.connection.cursor()
-            cursor.execute("INSERT INTO user (username, email, password) VALUES (%s,%s,%s)", (username, email, hashed_password))
-            cursor.close()
-            return redirect(url_for('dashboard'))
-        return render_template('project.html', form=form)
-    return redirect(url_for('login'))
-
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -170,10 +171,12 @@ def dashboard():
         all_users = cursor.fetchall()
         cursor.execute("SELECT * FROM employee")
         all_employees = cursor.fetchall()
+        cursor.execute("SELECT * FROM project")
+        all_projects = cursor.fetchall()
         cursor.close()
 
         if user:
-            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees)
+            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees, all_projects=all_projects)
     return redirect(url_for('login'))
 
 @app.route('/logout')

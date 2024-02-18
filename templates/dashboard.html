@@ -10,6 +10,29 @@
         <li>Email: {{ user[3]}}</li>
     </ul>
     {% if session['user_id'] == 1%}
+
+    <p>All Projects:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user_data in all_projects %}
+            <tr>
+                <th scope="row">{{ user_data[0] }}</th>
+                <td>{{ user_data[1] }}</td>
+                <td>{{ user_data[2] }}</td>
+                <td>{{ user_data[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
     <p>All Employees:</p>
 
     <table class="table table-striped">
@@ -39,7 +62,8 @@
     {% endif %}
     <a href="/logout" class="btn btn-danger mt-4">Logout</a>
     {% if session['user_id'] == 1%}
-    <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Add User</a>
+    <a href="{{ url_for('project') }}" class="btn btn-primary mt-4">Create Project</a>
+    <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Create Employee</a>
     {% endif %}
     {% endif %}
 
