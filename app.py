@@ -22,17 +22,21 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 mysql = MySQL(app)
 
+class CreateForm(FlaskForm):
+    project_name = StringField("Project Name", validators=[DataRequired()])
+    is_active = BooleanField("Is Active", validators=[DataRequired()])
+    description = StringField("Description", validators=[DataRequired()])
+
 
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    role = SelectField('Select Role', choices=[('general_manageer', 'General Manager'), ('project_manager', 'Project Manager'), ('employee', 'Employee') ], validators=[DataRequired()])
+    role = SelectField('Select Role', choices=[('general_manager', 'General Manager'), ('project_manager', 'Project Manager'), ('employee', 'Employee') ], validators=[DataRequired()])
     username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField("Temporary Password", validators=[DataRequired()])
     hire_date = DateField('Hire Date', format='%Y-%m-%d', validators=[DataRequired()])
     end_employment = DateField('End of Employment', format='%Y-%m-%d', validators=[DataRequired()])
-    print("before  projects & manager")
     # retrive  all projects
     with app.app_context():
         cursor = mysql.connection.cursor()
@@ -47,9 +51,9 @@ class RegisterForm(FlaskForm):
         cursor.execute("SELECT * FROM employee WHERE role='project_manager'")
         managers = cursor.fetchall()  
         cursor.close()
-        manager_choices =  [(str(manager[0]), manager[7]) for manager in managers]
+        manager_choices =  [(str(manager[0]), manager[6] +' '+ manager[7]) for manager in managers]
         manager = SelectField('Assign Manager', choices=manager_choices, validators=[DataRequired()])
-    print("After  projects & manager")
+     
     submit = SubmitField("Add Employee")
 
     def validate_email(self, field):
@@ -60,7 +64,6 @@ class RegisterForm(FlaskForm):
         if user:
             raise ValidationError('Email Already Taken')
 
-
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -70,6 +73,26 @@ class LoginForm(FlaskForm):
 def index():
     return render_template('index.html')
 
+@app.route('/project', methods=['GET','POST'])
+def project():
+    # Read data From database
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM user WHERE email=%s", ('wafa@marouani.com',))
+    user = cursor.fetchone()
+    if user and 'user_id' in session and session['user_id'] == 1:
+        form = CreateForm()
+        if form.validate_on_submit():
+            project_name = form.project_name.data
+            description = form.description.data
+
+            cursor = mysql.connection.cursor()
+            cursor.execute("INSERT INTO user (username, email, password) VALUES (%s,%s,%s)", (username, email, hashed_password))
+            cursor.close()
+            return redirect(url_for('dashboard'))
+        return render_template('project.html', form=form)
+    return redirect(url_for('login'))
+
+
 @app.route('/register', methods=['GET','POST'])
 def register():
     # Read data From database
@@ -78,9 +101,7 @@ def register():
     user = cursor.fetchone()
     if user and 'user_id' in session and session['user_id'] == 1:
         form = RegisterForm()
-        print("I am here")
         if form.validate_on_submit():
-            print("I am in")
             first_name = form.first_name.data
             last_name = form.last_name.data
             email = form.email.data
@@ -97,8 +118,7 @@ def register():
             # Store data into database
             cursor = mysql.connection.cursor()
             # Store data into user table
-            var12 = cursor.execute("INSERT INTO user (username, email, password) VALUES (%s,%s,%s)", (username, email, hashed_password))
-            print(var12)
+            cursor.execute("INSERT INTO user (username, email, password) VALUES (%s,%s,%s)", (username, email, hashed_password))
             cursor.execute("SELECT user_id FROM user where email=%s", (form.email.data,))
             # Store data into user employee table
             user_id_employee = cursor.fetchone()[0]
