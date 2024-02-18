@@ -2,27 +2,33 @@
 {% block content %}
 
 <div class="container">
-    <h2>Add New User:</h2>
+    <h2>Add New Employee:</h2>
     <form action="/register" method="POST">
         {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.name.label(for="name")}}
-            {{ form.name(id="name", class="form-control")}}
-
-            {% if form.name.errors %}
-            <ul>
-                {% for error in form.name.errors %}
-                <li> {{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+        <hr class="mb-4">
+        <h4 class="mb-3">Employee Credential:</h4>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+            </div>
+            <input type="text" class="form-control" id="username" placeholder="Username" required="">
+            <div class="invalid-feedback" style="width: 100%;">
+                {% if form.username.errors %}
+                <ul>
+                    {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
         </div>
+        <br>
         <div class="form-group">
             {{ form.email.label(for="email")}}
             {{ form.email(id="email", class="form-control")}}
 
             {% if form.email.errors %}
-            <ul class="text-danger">
+            <ul>
                 {% for error in form.email.errors %}
                 <li> {{ error }}</li>
                 {% endfor %}
@@ -36,6 +42,94 @@
             {% if form.password.errors %}
             <ul>
                 {% for error in form.password.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <hr class="mb-4">
+        <h4 class="mb-3">Employee Personal Information:</h4>
+        <div class="form-group">
+            {{ form.first_name.label(for="first_name")}}
+            {{ form.first_name(id="first_name", class="form-control")}}
+
+            {% if form.first_name.errors %}
+            <ul>
+                {% for error in form.first_name.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.last_name.label(for="last_name")}}
+            {{ form.last_name(id="last_name", class="form-control")}}
+
+            {% if form.last_name.errors %}
+            <ul>
+                {% for error in form.last_name.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <hr class="mb-4">
+        <h4 class="mb-3">Employee Project Information:</h4>
+        <div class="form-group">
+            {{ form.project.label(for="project")}}
+            {{ form.project(id="project", class="form-control")}}
+
+            {% if form.project.errors %}
+            <ul>
+                {% for error in form.project.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.manager.label(for="manager")}}
+            {{ form.manager(id="manager", class="form-control")}}
+
+            {% if form.manager.errors %}
+            <ul>
+                {% for error in form.manager.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.role.label(for="role")}}
+            {{ form.role(id="role", class="form-control")}}
+
+            {% if form.role.errors %}
+            <ul>
+                {% for error in form.role.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.hire_date.label(for="hire_date")}}
+            {{ form.hire_date(id="hire_date", class="form-control")}}
+
+            {% if form.hire_date.errors %}
+            <ul>
+                {% for error in form.hire_date.errors %}
+                <li> {{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.end_employment.label(for="end_employment")}}
+            {{ form.end_employment(id="end_employment", class="form-control")}}
+
+            {% if form.end_employment.errors %}
+            <ul>
+                {% for error in form.end_employment.errors %}
                 <li> {{ error }}</li>
                 {% endfor %}
             </ul>
