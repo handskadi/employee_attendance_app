@@ -44,6 +44,7 @@
                 <th scope="col">Project ID</th>
                 <th scope="col">Manager ID</th>
                 <th scope="col">Role</th>
+                <th scope="col">Thumbnail</th>
             </tr>
         </thead>
         <tbody>
@@ -55,6 +56,8 @@
                 <td>{{ user_data[5] }}</td>
                 <td>{{ user_data[4] }}</td>
                 <td>{{ user_data[8] }}</td>
+                <td><img src="{{ url_for('static', filename='uploads/' + user_data[9]) }}"
+                        alt="{{ user_data[6] }} Employee" /></td>
             </tr>
             {% endfor %}
         </tbody>
