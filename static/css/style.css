@@ -3,10 +3,16 @@ html {
 }
 
 body {
-    background-color: rgb(220, 232, 255);
+    /* background-color: rgb(220, 232, 255); */
     margin: 0 auto;
     max-width: 900px;
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.header_profile {
+    background-color: rgb(220, 232, 255);
+    margin-bottom: 20px;
+    padding: 20px;
 }
