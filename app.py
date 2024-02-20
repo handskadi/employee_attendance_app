@@ -9,6 +9,8 @@ from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 from flask_wtf.file import FileField, FileAllowed
 from flask import current_app
+from wtforms.validators import NumberRange
+
 
 app = Flask(__name__)
 
@@ -146,18 +148,49 @@ def dashboard():
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM user where user_id=%s", (user_id,))
         user = cursor.fetchone()
+        all_employees = []
+        all_projects = []
+        is_manager = False
 
         # Fetch all users' data
         cursor.execute("SELECT * FROM user")
         all_users = cursor.fetchall()
-        cursor.execute("SELECT * FROM employee")
-        all_employees = cursor.fetchall()
-        cursor.execute("SELECT * FROM project")
-        all_projects = cursor.fetchall()
+        if session['user_id'] == 1:
+            cursor.execute("SELECT * FROM employee")
+            all_employees = cursor.fetchall()
+            cursor.execute("SELECT * FROM project")
+            all_projects = cursor.fetchall()
+            is_manager = True
+
+        else:
+            cursor.execute("SELECT * FROM employee where role='project_manager'")
+            productManagers = cursor.fetchall()
+            for pm in productManagers:
+                if pm[8] == 'project_manager':
+                    # Get Employees
+                    cursor.execute("SELECT employee_id FROM employee WHERE user_id=%s", (session['user_id'],))
+                    employee_id = cursor.fetchone()
+                    cursor.execute("SELECT * FROM employee WHERE role='employee' AND manager_id=%s  OR user_id=%s", ( employee_id, session['user_id'],))
+                    all_employees = cursor.fetchall()
+                    
+                    # Get User role
+                    cursor.execute("SELECT role FROM employee WHERE user_id=%s", (session['user_id'],))
+                    employee_role = cursor.fetchone()
+                    print(employee_role[0])
+                    if employee_role[0] != 'employee':
+                        is_manager = True
+
+                    # Get Projects
+                    cursor.execute("SELECT project_id FROM employee WHERE user_id=%s", (session['user_id'],))
+                    project_id = cursor.fetchone()
+                    cursor.execute("SELECT * FROM project where project_id=%s", (project_id,))
+                    all_projects = cursor.fetchall()
+                else:
+                    pass
         cursor.close()
 
         if user:
-            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees, all_projects=all_projects)
+            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees, all_projects=all_projects, is_manager=is_manager)
     return redirect(url_for('login'))
 
 @app.route('/project', methods=['GET','POST'])
