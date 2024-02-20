@@ -36,6 +36,22 @@ class CreateForm(FlaskForm):
     description = StringField("Description", validators=[DataRequired()])
     submit = SubmitField("Create Project")
 
+class AttendanceForm(FlaskForm):
+    # retive all employees
+    with app.app_context():
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM employee WHERE role='employee'")
+        employees = cursor.fetchall()  
+        cursor.close()
+        employee_choices =  [(str(employee[0]), employee[6] +' '+ employee[7]) for employee in employees]
+        employee = SelectField('Select Employee', choices=employee_choices, validators=[DataRequired()])
+    attendance_date = DateField('Attendance Date', format='%Y-%m-%d', validators=[DataRequired()])
+    day_shift_hours = IntegerField('Day Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
+    night_shift_hours = IntegerField('Night Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
+    hours_worked = IntegerField('Hours Worked', validators=[DataRequired(), NumberRange(min=1, max=8)])
+    comment = StringField("Comment", validators=[DataRequired()])
+
+
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])
     last_name = StringField("Last Name", validators=[DataRequired()])

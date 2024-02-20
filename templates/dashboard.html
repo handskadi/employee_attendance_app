@@ -25,7 +25,11 @@
                 <center>
                     {% for user_data in all_employees %}
                         {% if user_data[1] == user[0] %}
-                            <img src="{{ url_for('static', filename='uploads/' + user_data[9]) }}" alt="{{ user_data[6] }} Employee" class="rounded-circle" title="{{ user_data[7] }} Photo" width="50" height="50"/>
+                            {% if user_data[9] %}
+                                <img src="{{ url_for('static', filename='uploads/' + user_data[9]) }}" alt="{{ user_data[6] }} Employee" class="rounded-circle" title="{{ user_data[7] }} Photo" width="50" height="50"/>
+                            {% else %}
+                                <p>No photo available</p>
+                            {% endif %}
                             <h6>{{ user_data[6] + ' ' + user_data[7] }}<span class="badge badge-warning">{{ user_data[8] }}</span></h6>
                         {% endif %}
                     {% endfor %} 
@@ -84,7 +88,13 @@
                             <td>{{ user_data[5] }}</td>
                             <td>{{ user_data[4] }}</td>
                             <td>{{ user_data[8] }}</td>
-                            <td><img src="{{ url_for('static', filename='uploads/' + user_data[9]) }}" alt="{{ user_data[6] }} Employee" class="rounded-circle" title="{{ user_data[7] }} Photo" width="50" height="50"/></td>
+                            <td>
+                                {% if user_data[9] %}
+                                    <img src="{{ url_for('static', filename='uploads/' + user_data[9]) }}" alt="{{ user_data[6] }} Employee" class="rounded-circle" title="{{ user_data[7] }} Photo" width="50" height="50"/>
+                                {% else %}
+                                    No photo available
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
