@@ -113,6 +113,7 @@
         </table>
         <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Create Employee</a>
     </div>
+    {% endif %}
     <br />
     <!-- Display Attendance Data -->
     <div class="border p-3">
@@ -146,9 +147,11 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if is_manager == True %}
         <a href="{{ url_for('attendance') }}" class="btn btn-primary mt-4">Add Attendance</a>
+        {% endif %}
     </div>
-    {% endif %}
+
 </div>
 
 

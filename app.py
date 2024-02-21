@@ -216,10 +216,14 @@ def dashboard():
                     all_projects = cursor.fetchall()
 
                      # Fetch attendance data for the manager's employees
-                    cursor.execute("SELECT * FROM attendance")
+                    cursor.execute("SELECT * FROM attendance where employee_id=%s", (employee_id))
                     all_attendance = cursor.fetchall()
+                    print("menot")
                 else:
-                    pass
+                    print("me here")
+                     # Fetch attendance data for the manager's employees
+                    cursor.execute("SELECT * FROM attendance WHERE employee_id=%s", (employee_id,))
+                    all_attendance = cursor.fetchall()
         cursor.close()
 
         if user:
