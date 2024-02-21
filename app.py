@@ -50,9 +50,35 @@ class AttendanceForm(FlaskForm):
     attendance_date = DateField('Attendance Date', format='%Y-%m-%d', validators=[DataRequired()])
     day_shift_hours = IntegerField('Day Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
     night_shift_hours = IntegerField('Night Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
-    hours_worked = IntegerField('Hours Worked', validators=[DataRequired(), NumberRange(min=1, max=8)])
+    hours_worked = IntegerField('Hours Worked')
     comment = StringField("Comment", validators=[DataRequired()])
+    submit = SubmitField("Commit")
 
+@app.route('/attendance', methods=['GET','POST'])
+def attendance():
+    # Read data From database
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM user WHERE email=%s", ('wafa@marouani.com',))
+    user = cursor.fetchone()
+    if user and 'user_id' in session and session['user_id'] == 1:
+        form = AttendanceForm()
+        print("outside of if")
+        if form.validate_on_submit():
+            print("Got here")
+            employee = form.employee.data
+            attendance_date = form.attendance_date.data
+            day_shift_hours = form.day_shift_hours.data
+            night_shift_hours = form.night_shift_hours.data
+            hours_worked = day_shift_hours + night_shift_hours
+            comment = form.comment.data
+
+            cursor = mysql.connection.cursor()
+            cursor.execute("INSERT INTO attendance (employee_id, attendance_date, day_shift_hours, night_shift_hours, hours_worked, comment) VALUES (%s,%s,%s,%s,%s,%s)", (employee, attendance_date, day_shift_hours, night_shift_hours, hours_worked, comment ))
+            mysql.connection.commit()
+            cursor.close()
+            return redirect(url_for('dashboard'))
+        return render_template('attendance.html', form=form)
+    return redirect(url_for('login'))
 
 class RegisterForm(FlaskForm):
     first_name = StringField("First Name", validators=[DataRequired()])

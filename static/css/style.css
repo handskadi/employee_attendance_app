@@ -16,3 +16,73 @@ body {
     margin-bottom: 20px;
     padding: 20px;
 }
+
+.group-fixer-right {
+    margin-right: 10px;
+}
+
+.group-fixer-left {
+    margin-left: 10px;
+}
+
+/* Style for sliders */
+.noUi-connect {
+    background: #007bff;
+    /* Slider track color */
+}
+
+.noUi-horizontal .noUi-handle {
+    background: #007bff;
+    /* Slider handle color */
+}
+
+/* Style for tooltips */
+.noUi-tooltip {
+    background: #007bff;
+    /* Tooltip background color */
+    color: #fff;
+    /* Tooltip text color */
+    border: none;
+    /* Remove tooltip border */
+    border-radius: 4px;
+    /* Add border radius to tooltip */
+    padding: 8px;
+    /* Add padding to tooltip */
+    font-size: 14px;
+    /* Adjust tooltip font size */
+}
+
+.noUi-tooltip::before,
+.noUi-tooltip::after {
+    display: none;
+    /* Hide tooltip arrow */
+}
+
+.noUi-connect {
+    background: #e2edff !important;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 28px;
+    height: 28px;
+    right: -17px;
+    top: -13px !important;
+}
+
+.noUi-horizontal {
+    height: 8px !important;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 28px !important;
+    height: 28px !important;
+    right: -17px;
+    top: -6px;
+    border-radius: 50% !important;
+}
+
+
+.noUi-handle:after,
+.noUi-handle:before {
+    display: none !important;
+}
