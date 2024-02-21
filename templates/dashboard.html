@@ -113,7 +113,43 @@
         </table>
         <a href="{{ url_for('register') }}" class="btn btn-primary mt-4">Create Employee</a>
     </div>
+    <br />
+    <!-- Display Attendance Data -->
+    <div class="border p-3">
+        <h3>Attendance Data</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Day Shift Hours</th>
+                    <th scope="col">Night Shift Hours</th>
+                    <th scope="col">Hours Worked</th>
+                    <th scope="col">Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attendance in all_attendance %}
+                {% print(attendance.employee_id) %}
+                <tr>
+                    {% for employee_data in all_employees %}
+                    {% if employee_data[0] == attendance[1] %}
+                    <td>{{ employee_data[7] + " " + employee_data[6]}}</td>
+                    {% endif %}
+                    {% endfor %}
+                    <td>{{ attendance[2]}}</td>
+                    <td>{{ attendance[3]}}</td>
+                    <td>{{ attendance[4]}}</td>
+                    <td>{{ attendance[5] }}</td>
+                    <td>{{ attendance[6]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('attendance') }}" class="btn btn-primary mt-4">Add Attendance</a>
+    </div>
     {% endif %}
 </div>
+
 
 {% endblock %}

@@ -59,23 +59,23 @@ body {
 }
 
 .noUi-connect {
-    background: #e2edff !important;
+    background: #007bff !important;
 }
 
 .noUi-horizontal .noUi-handle {
     width: 28px;
     height: 28px;
     right: -17px;
-    top: -13px !important;
+    top: -9px !important;
 }
 
 .noUi-horizontal {
-    height: 8px !important;
+    height: 6px !important;
 }
 
 .noUi-horizontal .noUi-handle {
-    width: 28px !important;
-    height: 28px !important;
+    width: 20px !important;
+    height: 20px !important;
     right: -17px;
     top: -6px;
     border-radius: 50% !important;
@@ -85,4 +85,8 @@ body {
 .noUi-handle:after,
 .noUi-handle:before {
     display: none !important;
+}
+
+.noUi-handle {
+    box-shadow: none !important;
 }

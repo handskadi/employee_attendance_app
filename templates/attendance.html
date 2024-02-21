@@ -33,13 +33,13 @@
             {% endif %}
         </div>
         <div class="form-row">
-            <div class="form-group col group-fixer-right">
+            <div class="form-group col">
                 <label for="day_shift_hours">Day Shift Hours</label>
                 <div id="day-shift-slider"></div>
                 <input type="hidden" name="day_shift_hours" id="day_shift_hours">
             </div>
 
-            <div class="form-group col group-fixer">
+            <div class="form-group col">
                 <label for="night_shift_hours">Night Shift Hours</label>
                 <div id="night-shift-slider"></div>
                 <input type="hidden" name="night_shift_hours" id="night_shift_hours">
@@ -69,7 +69,7 @@
     function createSlider(elementId, maxValue, inputId) {
         var slider = document.getElementById(elementId);
         noUiSlider.create(slider, {
-            start: 0,
+            start: [document.getElementById(inputId).value], // Set initial value based on the input field
             connect: 'lower',
             step: 1,
             range: {

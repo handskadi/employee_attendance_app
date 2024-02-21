@@ -48,7 +48,7 @@ class AttendanceForm(FlaskForm):
         employee_choices =  [(str(employee[0]), employee[6] +' '+ employee[7]) for employee in employees]
         employee = SelectField('Select Employee', choices=employee_choices, validators=[DataRequired()])
     attendance_date = DateField('Attendance Date', format='%Y-%m-%d', validators=[DataRequired()])
-    day_shift_hours = IntegerField('Day Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
+    day_shift_hours = IntegerField('Day Shift Hours', default=3, validators=[DataRequired(), NumberRange(min=1, max=8)])
     night_shift_hours = IntegerField('Night Shift Hours', validators=[DataRequired(), NumberRange(min=1, max=8)])
     hours_worked = IntegerField('Hours Worked')
     comment = StringField("Comment", validators=[DataRequired()])
@@ -176,6 +176,7 @@ def dashboard():
         user = cursor.fetchone()
         all_employees = []
         all_projects = []
+        all_attendance = []
         is_manager = False
 
         # Fetch all users' data
@@ -186,6 +187,8 @@ def dashboard():
             all_employees = cursor.fetchall()
             cursor.execute("SELECT * FROM project")
             all_projects = cursor.fetchall()
+            cursor.execute("SELECT * FROM attendance")
+            all_attendance = cursor.fetchall()
             is_manager = True
 
         else:
@@ -211,12 +214,16 @@ def dashboard():
                     project_id = cursor.fetchone()
                     cursor.execute("SELECT * FROM project where project_id=%s", (project_id,))
                     all_projects = cursor.fetchall()
+
+                     # Fetch attendance data for the manager's employees
+                    cursor.execute("SELECT * FROM attendance")
+                    all_attendance = cursor.fetchall()
                 else:
                     pass
         cursor.close()
 
         if user:
-            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees, all_projects=all_projects, is_manager=is_manager)
+            return render_template('dashboard.html', user=user, all_users=all_users, all_employees=all_employees, all_projects=all_projects,  all_attendance=all_attendance, is_manager=is_manager)
     return redirect(url_for('login'))
 
 @app.route('/project', methods=['GET','POST'])
