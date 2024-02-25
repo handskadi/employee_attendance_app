@@ -3,10 +3,21 @@
 
 <div class="container">
     <h2>Edit Employee:</h2>
-    <form action="/edit_employee/{{ employee_id }}" method="POST" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="/update_employee/{{ employee_id }}" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <hr class="mb-4">
-        <h4 class="mb-3">Employee Personal Information:</h4>
+        <h4 class="mb-3">Personal Information:</h4>
         <!-- First Name Field -->
         <div class="form-group">
             {{ form.first_name.label(for="first_name") }}
@@ -58,7 +69,7 @@
             {% endif %}
         </div>
         <hr class="mb-4">
-        <h4 class="mb-3">Employee Project Information:</h4>
+        <h4 class="mb-3">Project Information:</h4>
         <!-- Project Field -->
         <div class="form-group">
             {{ form.project.label(for="project") }}

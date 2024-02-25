@@ -1,13 +1,224 @@
-{% extends 'app.html'%}
+{% extends 'elements/index_app.html' %}
 {% block content %}
 
-<h1>EAP APP</h1>
-<p>Welcome to Attendance Employees App</p>
+<main>
+    <h1 class="visually-hidden">Employee Attendance App</h1>
 
-{% if 'user_id' in session %}
-<a href="{{ url_for('dashboard') }}" class="btn btn-primary">Dashboard</a>
-{% else %}
-<a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
-{% endif %}
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Documentation</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                </ul>
+
+                <div class="text-end">
+                    {% if user %}
+                    <a href="{{ url_for('dashboard_route') }}" class="btn btn-outline-light me-2">Dashboard</a>
+                    <!-- <a href="{{ url_for('logout') }}" class="btn btn-warning">Logout</a> -->
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Login</a>
+                    {% endif %}
+                </div>
+                {% if user %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ url_for('static', filename='uploads/' + logged_in_employee[9]) }}"
+                            alt="{{ logged_in_employee[6] }} Employee" title="{{ logged_in_employee[7] }}" width="40"
+                            height="40" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <li><strong class="dropdown-item" href="#">{{logged_in_employee[6] +"
+                                "+ logged_in_employee[7]}}</strong></li>
+                        <li><a class="dropdown-item" href="/edit_employee/{{ logged_in_employee[0] }}"> Edit
+                                Profile</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <h2>
+
+        </h2>
+    </header>
+
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <img src="{{ url_for('static', filename='images/bootstrap-themes.png') }}"
+                    class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Responsive left-aligned hero with image
+                </h1>
+                <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
+                    world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
+                    responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container px-4 py-5" id="icon-grid">
+        <h2 class="pb-2 border-bottom">Attendance App Features</h2>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#cpu-fill" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#calendar3" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#home" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#speedometer2" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#toggles2" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#geo-fill" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em">
+                    <use xlink:href="#tools" />
+                </svg>
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
+                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="b-example-divider"></div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="bootstrap" viewBox="0 0 118 94">
+            <title>Bootstrap</title>
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z">
+            </path>
+        </symbol>
+        <symbol id="arrow-right-short" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+        </symbol>
+        <symbol id="check2-circle" viewBox="0 0 16 16">
+            <path
+                d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+            <path
+                d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+        </symbol>
+    </svg>
+    <div class="container my-5">
+        <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+            <button type="button"
+                class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill"
+                aria-label="Close"></button>
+            <svg class="bi mt-5 mb-3" width="48" height="48">
+                <use xlink:href="#check2-circle" />
+            </svg>
+            <h1 class="text-body-emphasis">Placeholder jumbotron</h1>
+            <p class="col-lg-6 mx-auto mb-4">
+                This faded back jumbotron is useful for placeholder content. It's also a great way to add a bit of
+                context to a page or section when no content is available and to encourage visitors to take a
+                specific action.
+            </p>
+            <button class="btn btn-primary px-5 mb-5" type="button">
+                Call to action
+            </button>
+        </div>
+    </div>
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">&copy; 2024 Mkweb, Inc</p>
+
+            <a href="/"
+                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+            </ul>
+        </footer>
+    </div>
+
+</main>
 
 {% endblock %}

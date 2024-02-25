@@ -1,26 +1,18 @@
-{% extends 'app.html'%}
+{% extends 'elements/login_app.html' %}
 {% block content %}
 
-<div class="container">
-    <h2>Login form</h2>
-
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-    {% endwith %}
-
+<main class="form-signin w-100 m-auto">
     <form action="/login" method="POST">
         {{ form.hidden_tag() }}
-        <div class="form-group">
+        <a href="{{ url_for('index') }}"><img class="mb-4 mx-auto d-block"
+                src="{{ url_for('static', filename='assets/brand/bootstrap-logo.svg') }}" alt="Employee Attendance App"
+                width="72" height="57"></a>
+        <h1 class="visually-hidden">Login Form</h1>
+
+        <div class="form-floating">
+            {{ form.email(id="email", class="form-control", placeholder="name@example.com",
+            placeholder="Password")}}
             {{ form.email.label(for="email")}}
-            {{ form.email(id="email", class="form-control")}}
 
             {% if form.email.errors %}
             <ul>
@@ -30,10 +22,10 @@
             </ul>
             {% endif %}
         </div>
-        <div class="form-group">
-            {{ form.password.label(for="password")}}
-            {{ form.password(id="password", class="form-control")}}
 
+        <div class="form-floating">
+            {{ form.password(id="password", class="form-control", placeholder="Password")}}
+            {{ form.password.label(for="password")}}
             {% if form.password.errors %}
             <ul>
                 {% for error in form.password.errors %}
@@ -42,9 +34,16 @@
             </ul>
             {% endif %}
         </div>
-        {{ form.submit(class="btn btn-dark mt-4")}}
-        <a href="/register" class="btn btn-info mt-4">Register</a>
+
+        <div class="form-check text-start my-3">
+            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Remember me
+            </label>
+        </div>
+        {{ form.submit(class="btn btn-primary w-100 py-2")}}
+        <p class="mt-5 mb-3 text-body-secondary text-center">Mkweb - &copy; 2024</p>
     </form>
-</div>
+</main>
 
 {% endblock %}
