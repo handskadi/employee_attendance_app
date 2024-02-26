@@ -19,6 +19,7 @@
 
     <link href="{{ url_for('static', filename='assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -100,8 +101,20 @@
         .small-card {
             font-size: .5em;
         }
+        
     </style>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script>
 
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/sidebars.css') }}" rel="stylesheet">

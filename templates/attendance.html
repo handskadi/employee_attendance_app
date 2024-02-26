@@ -1,107 +1,167 @@
-{% extends 'app.html'%}
+{% extends 'elements/dashboard_app.html' %}
 {% block content %}
 
-<div class="container">
-    <h2>Employee Attendance:</h2>
-    <form action="/add_attendance" method="POST">
-        {{ form.hidden_tag() }}
-        <hr class="mb-4">
-        <h4 class="mb-3">Track Attendance:</h4>
 
-        <div class="form-group">
-            {{ form.employee.label(for="employee")}}
-            {{ form.employee(id="employee", class="form-control")}}
 
-            {% if form.employee.errors %}
-            <ul>
-                {% for error in form.employee.errors %}
-                <li> {{ error }}</li>
-                {% endfor %}
+<main class="d-flex flex-nowrap">
+    <!-- Sidebar Section -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+        <!-- Logo/Brand -->
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <svg class="bi pe-none me-2" width="40" height="32">
+                <use xlink:href="#bootstrap" />
+            </svg>
+            <span class="fs-4">EAP</span>
+        </a>
+        <hr>
+        <!-- Navigation Links -->
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item ">
+                <a href="/dashboard" class="nav-link active" aria-current="page">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2" />
+                    </svg>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <a href="/" class="nav-link link-body-emphasis">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#home" />
+                    </svg>
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
+                    aria-expanded="false">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#grid" />
+                    </svg>
+
+                    Project
+                </button>
+                <div class="collapse" id="project-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                Projects</a>
+                        </li>
+                        <li><a href="/create_project"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                                Project</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                    data-bs-target="#employee-collapse" aria-expanded="false">
+
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#people-circle" />
+                    </svg>
+                    Employee
+                </button>
+                <div class="collapse" id="employee-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/employees"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                Employees</a>
+                        </li>
+                        <li><a href="/create_employee"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                                Employee</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                    data-bs-target="#attendance-collapse" aria-expanded="false">
+                    <svg class="bi pe-none me-2" width="16" height="16">
+                        <use xlink:href="#table" />
+                    </svg>
+                    Attendance
+                </button>
+                <div class="collapse" id="attendance-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                Attendances</a>
+                        </li>
+                        <li><a href="/add_attendance"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                Attendance</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <hr>
+        <!-- User Dropdown Menu -->
+        {% if user %}
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{ url_for('static', filename='uploads/' + logged_in_employee[9]) }}"
+                    alt="{{ logged_in_employee[6] }} Employee" title="{{ logged_in_employee[7] }}" width="35"
+                    height="35" class="rounded-circle me-2">
+                <strong> {{logged_in_employee[6] +" "+ logged_in_employee[7]}} </strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="/edit_employee/{{ logged_in_employee[0] }}">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
             </ul>
-            {% endif %}
         </div>
-        <div class="form-group">
-            {{ form.attendance_date.label(for="attendance_date")}}
-            {{ form.attendance_date(id="attendance_date", class="form-control")}}
+        {% endif %}
 
-            {% if form.attendance_date.errors %}
-            <ul>
-                {% for error in form.attendance_date.errors %}
-                <li> {{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+    </div>
+
+    <!-- Divider between Sidebar and Content -->
+    <div class="b-example-divider b-example-vr"></div>
+
+    <!-- Content Section -->
+    <div class="flex-grow-1 p-3 overflow-auto">
+
+        <!-- Breadcrumb -->
+        <div class="container my-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+                    <li class="breadcrumb-item">
+                        <a class="link-body-emphasis" href="/">
+                            <svg class="bi" width="16" height="16">
+                                <use xlink:href="#home"></use>
+                            </svg>
+                            <span class="visually-hidden">Home</span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        {% for employee_data in all_employees %}
+                        {% if employee_data[1] == user[0] %}
+                        <span
+                            class="badge bg-warning-subtle text-warning-emphasis rounded-pill">{{employee_data[8]|upper}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        Dashboard
+                    </li>
+                </ol>
+            </nav>
         </div>
-        <div class="form-row">
-            <div class="form-group col">
-                <label for="day_shift_hours">Day Shift Hours</label>
-                <div id="day-shift-slider"></div>
-                <input type="hidden" name="day_shift_hours" id="day_shift_hours">
-            </div>
 
-            <div class="form-group col">
-                <label for="night_shift_hours">Night Shift Hours</label>
-                <div id="night-shift-slider"></div>
-                <input type="hidden" name="night_shift_hours" id="night_shift_hours">
-            </div>
+        <!-- Calendar Start -->
+        <div class="container">
+          <div id='calendar'></div>
         </div>
-        <div class="form-group">
-            {{ form.comment.label(for="comment")}}
-            {{ form.comment(id="comment", class="form-control")}}
+        <!-- Calender ENd-->
 
-            {% if form.comment.errors %}
-            <ul>
-                {% for error in form.comment.errors %}
-                <li> {{ error }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </div>
-
-        {{ form.submit(class="btn btn-dark mt-4")}}
-    </form>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" rel="stylesheet">
-<script>
-    // Function to create a slider
-    function createSlider(elementId, maxValue, inputId) {
-        var slider = document.getElementById(elementId);
-        noUiSlider.create(slider, {
-            start: [document.getElementById(inputId).value], // Set initial value based on the input field
-            connect: 'lower',
-            step: 1,
-            range: {
-                'min': 0,
-                'max': maxValue
-            },
-            tooltips: true, // Enable tooltips
-            format: {
-                to: function (value) {
-                    return Math.round(value); // Round the value for display
-                },
-                from: function (value) {
-                    return value; // No conversion needed from tooltip to value
-                }
-            }
-        });
-
-        // Update hidden input value when slider value changes
-        slider.noUiSlider.on('update', function (values, handle) {
-            document.getElementById(inputId).value = Math.round(values[handle]);
-        });
-    }
-
-    // Create sliders for day_shift_hours and night_shift_hours
-    createSlider('day-shift-slider', 8, 'day_shift_hours'); // Max value is 8 for day_shift_hours
-    createSlider('night-shift-slider', 8, 'night_shift_hours'); // Max value is 8 for night_shift_hours
-
-    // Set current date as the value for the attendance_date field
-    window.addEventListener('DOMContentLoaded', function () {
-        var today = new Date().toISOString().substr(0, 10);
-        document.getElementById('attendance_date').value = today;
-    });
-</script>
+        <!-- Two Boxes  -->
+    </div>
+</main>
 
 {% endblock %}

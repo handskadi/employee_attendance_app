@@ -52,14 +52,14 @@ class AttendanceForm(FlaskForm):
     submit = SubmitField("Commit")
 
 class RegisterForm(FlaskForm):
-    first_name = StringField("First Name", validators=[DataRequired()])
-    last_name = StringField("Last Name", validators=[DataRequired()])
+    first_name = StringField("First name", validators=[DataRequired()])
+    last_name = StringField("Last name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
-    role = SelectField('Select Role', choices=[('general_manager', 'General Manager'), ('project_manager', 'Project Manager'), ('employee', 'Employee') ], validators=[DataRequired()])
+    role = SelectField('Select role', choices=[('general_manager', 'General Manager'), ('project_manager', 'Project Manager'), ('employee', 'Employee') ], validators=[DataRequired()])
     username = StringField("Username", validators=[DataRequired()])
-    password = PasswordField("Temporary Password", validators=[DataRequired()])
+    password = PasswordField("Temporary password", validators=[DataRequired()])
     hire_date = DateField('Hire Date', format='%Y-%m-%d', validators=[DataRequired()])
-    end_employment = DateField('End of Employment', format='%Y-%m-%d', validators=[DataRequired()])
+    end_employment = DateField('End of employment', format='%Y-%m-%d', validators=[DataRequired()])
 
     # retrive all projects
     with app.app_context():
