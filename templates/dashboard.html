@@ -65,7 +65,8 @@
                 </button>
                 <div class="collapse" id="employee-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                        <li><a href="/employees"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
                                 Employees</a>
                         </li>
                         <li><a href="/create_employee"
@@ -104,7 +105,7 @@
                 <img src="{{ url_for('static', filename='uploads/' + logged_in_employee[9]) }}"
                     alt="{{ logged_in_employee[6] }} Employee" title="{{ logged_in_employee[7] }}" width="35"
                     height="35" class="rounded-circle me-2">
-                <strong>{{logged_in_employee[6] +" "+ logged_in_employee[7]}}</strong>
+                <strong> {{logged_in_employee[6] +" "+ logged_in_employee[7]}} </strong>
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -164,8 +165,8 @@
                         <h1 class="card-title pricing-card-title">{{ total_projects}}<small
                                 class="text-body-secondary fw-light small-card"><br>Projects</small></h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li>{{active_projects}} Active Project</li>
-                            <li>{{inactive_projects}} Inactive Projects</li>
+                            <li>{{active_projects}} <span class="text-success">Active</span> Project</li>
+                            <li>{{inactive_projects}} <span class="text-danger">Inactive</span> Projects</li>
                             <!-- <li>5 Completed Project</li> -->
                         </ul>
                         <button type="button" class="w-100 btn btn-lg btn-outline-secondary">Projects Details</button>
@@ -217,65 +218,6 @@
                 </div>
             </div>
         </div>
-        <!-- Content Heading -->
-        <h2>Content Section</h2>
-
-        <!-- Table -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Column 1</th>
-                    <th scope="col">Column 2</th>
-                    <th scope="col">Column 3</th>
-                    <th scope="col">Column 4</th>
-                    <th scope="col">Column 5</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Row 1, Column 1</td>
-                    <td>Row 1, Column 2</td>
-                    <td>Row 1, Column 3</td>
-                    <td>Row 1, Column 4</td>
-                    <td>Row 1, Column 5</td>
-                </tr>
-                <tr>
-                    <td>Row 2, Column 1</td>
-                    <td>Row 2, Column 2</td>
-                    <td>Row 2, Column 3</td>
-                    <td>Row 2, Column 4</td>
-                    <td>Row 2, Column 5</td>
-                </tr>
-                <tr>
-                    <td>Row 3, Column 1</td>
-                    <td>Row 3, Column 2</td>
-                    <td>Row 3, Column 3</td>
-                    <td>Row 3, Column 4</td>
-                    <td>Row 3, Column 5</td>
-                </tr>
-                <tr>
-                    <td>Row 4, Column 1</td>
-                    <td>Row 4, Column 2</td>
-                    <td>Row 4, Column 3</td>
-                    <td>Row 4, Column 4</td>
-                    <td>Row 4, Column 5</td>
-                </tr>
-                <tr>
-                    <td>Row 5, Column 1</td>
-                    <td>Row 5, Column 2</td>
-                    <td>Row 5, Column 3</td>
-                    <td>Row 5, Column 4</td>
-                    <td>Row 5, Column 5</td>
-                </tr>
-                <tr>
-                    <td>Row 6, Column 1</td>
-                    <td>Row 6, Column 2</td>
-                    <td>Row 6, Column 3</td>
-                    <td>Row 6, Column 4</td>
-                    <td>Row 6, Column 5</td>
-                </tr>
-            </tbody>
-        </table>
 
     </div>
 </main>
