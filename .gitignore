@@ -1,5 +1,5 @@
 __pycache__/
 eap/
 static/uploads/
-eap_funcs/
+eap_funcs/__pycache__/
 .env
