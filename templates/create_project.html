@@ -139,7 +139,7 @@
                     <li class="breadcrumb-item">
                         <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"> Update Employee
+                    <li class="breadcrumb-item active" aria-current="page"> Create New Project
                     </li>
                 </ol>
             </nav>
@@ -147,36 +147,16 @@
 
         <!-- Form Start -->
         <div class="container">
-            <form class="needs-validation" action="/update_employee/{{ employee_id }}" method="POST"
-                enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
+            <form class="needs-validation" action="/create_project" method="POST" enctype="multipart/form-data">
                 <div class="row g-5">
                     <div class="col-md-5 col-lg-4 order-md-last">
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-header">Profile Picture</div>
                             <div class="card-body text-center">
-                                {% if form.image.data %}
                                 <img id="preview-image" class="img-account-profile rounded-circle mb-2"
-                                    src="{{ url_for('static', filename='uploads/' + form.image.data) }}" alt="">
-                                {% else %}
-                                <img src="{{ url_for('static', filename='uploads/img_avatar1.png') }}"
-                                    id="current-image" style="max-width: 100px; max-height: 100px;"
-                                    class="rounded-circle">
-                                {% endif %}
+                                    src="{{ url_for('static', filename='uploads/img_avatar1.png') }}" alt="">
                                 <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                                {{ form.image(id="image", class="form-control", style="display: none;",
-                                onchange="previewImage(event)")
-                                }}
-                                <label for="image" class="btn btn-primary custom-upload-button">Upload new image</label>
-                                <div class="invalid-feedback">
-                                    {% if form.image.errors %}
-                                    <ul>
-                                        {% for error in form.image.errors %}
-                                        <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
+
                             </div>
 
                             <script>
@@ -193,68 +173,19 @@
                             </script>
 
                         </div>
-                        <br>
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">Project</h6>
-                                    <small class="text-body-secondary">{{updated__employee[11]}}</small>
-                                </div>
-                                <span class="text-body-secondary">Active</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between lh-sm">
-                                <div>
-                                    <h6 class="my-0">Manager</h6>
-                                    <small class="text-body-secondary">{{updated__employee[10]}}</small>
-                                </div>
-                                <span class="text-body-secondary">{{updated__employee[8]}}</span>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="col-md-7 col-lg-8">
-                        <h4 class="mb-3">Employee Information</h4>
+                        <h4 class="mb-3">Project Information</h4>
+                        {{ form.hidden_tag() }}
                         <div class="row g-3">
-                            <div class="col-sm-6">
-                                {{ form.first_name.label(for="first_name") }}
-                                {{ form.first_name(id="first_name", class="form-control") }}
+                            <div class="col-sm-12">
+                                {{ form.project_name.label(for="project_name")}}
+                                {{ form.project_name(id="project_name", class="form-control")}}
                                 <div class="invalid-feedback">
-                                    {% if form.first_name.errors %}
+                                    {% if form.project_name.errors %}
                                     <ul>
-                                        {% for error in form.first_name.errors %}
-                                        <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                {{ form.last_name.label(for="last_name") }}
-                                {{ form.last_name(id="last_name", class="form-control") }}
-
-                                <div class="invalid-feedback">
-                                    {% if form.last_name.errors %}
-                                    <ul>
-                                        {% for error in form.last_name.errors %}
-                                        <li>{{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <h4 class="mb-3">Project Details</h4>
-                            </div>
-
-                            <div class="col-md-4">
-                                {{ form.role.label(for="role", class="form-label")}}
-                                {{ form.role(id="role", class="form-select")}}
-                                <div class="invalid-feedback">
-                                    {% if form.role.errors %}
-                                    <ul>
-                                        {% for error in form.role.errors %}
+                                        {% for error in form.project_name.errors %}
                                         <li> {{ error }}</li>
                                         {% endfor %}
                                     </ul>
@@ -262,13 +193,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                {{ form.project.label(for="project", class="form-label")}}
-                                {{ form.project(id="project", class="form-select")}}
+                            <div class="col-sm-12">
+                                {{ form.description.label(for="description")}}
+                                {{ form.description(id="description", class="form-control")}}
                                 <div class="invalid-feedback">
-                                    {% if form.project.errors %}
+                                    {% if form.description.errors %}
                                     <ul>
-                                        {% for error in form.project.errors %}
+                                        {% for error in form.description.errors %}
                                         <li> {{ error }}</li>
                                         {% endfor %}
                                     </ul>
@@ -276,48 +207,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                {{ form.manager.label(for="manager", class="form-label")}}
-                                {{ form.manager(id="manager", class="form-select")}}
-                                <div class="invalid-feedback">
-                                    {% if form.manager.errors %}
-                                    <ul>
-                                        {% for error in form.manager.errors %}
-                                        <li> {{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
+                            <div class="custom-control custom-checkbox">
+                                {{ form.is_active(id="is_active", class="custom-control-input")}}
+                                {{ form.is_active.label(for="is_active", class="custom-control-label")}}
+                                {% if form.is_active.errors %}
+                                <ul>
+                                    {% for error in form.is_active.errors %}
+                                    <li> {{ error }}</li>
+                                    {% endfor %}
+                                </ul>
 
-                            <div class="col-6">
-                                {{ form.hire_date.label(for="hire_date", class="form-label")}}
-                                {{ form.hire_date(id="hire_date", class="form-control")}}
-                                <div class="invalid-feedback">
-                                    {% if form.hire_date.errors %}
-                                    <ul>
-                                        {% for error in form.hire_date.errors %}
-                                        <li> {{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
+                                {% endif %}
 
-                            <div class="col-6">
-                                {{ form.end_employment.label(for="end_employment", class="form-label")}}
-                                {{ form.end_employment(id="end_employment", class="form-control")}}
-                                <div class="invalid-feedback">
-                                    {% if form.end_employment.errors %}
-                                    <ul>
-                                        {% for error in form.end_employment.errors %}
-                                        <li> {{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
                             </div>
-
                         </div>
                         <hr class="my-4">
                         {{ form.submit(class="w-100 btn btn-primary btn-lg")}}

@@ -16,6 +16,6 @@ def create_project_route():
             cursor.execute("INSERT INTO project (project_name, is_active, description) VALUES (%s,%s,%s)", (project_name, is_active, description))
             mysql.connection.commit()
             cursor.close()
-            return redirect(url_for('dashboard_route'))
-        return render_template('project.html', form=form)
+            return redirect(url_for('create_project'))
+        return render_template('create_project.html', form=form)
     return redirect(url_for('login'))

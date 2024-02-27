@@ -33,6 +33,7 @@ def projects_route(session):
                 """)
             all_projects = cursor.fetchall()
             print(all_projects)
+            
             cursor.execute("""SELECT
                     e1.*,
                     CONCAT(e2.firstname, ' ', e2.lastname) AS manager_name,

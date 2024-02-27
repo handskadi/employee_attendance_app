@@ -69,7 +69,7 @@ def employees():
 
 
 @app.route('/projects', methods=['GET','POST'])
-def projects():
+def create_project():
     dashboard_data = dashboard(session)
     if dashboard_data:
         return render_template('list_projects.html', **dashboard_data)

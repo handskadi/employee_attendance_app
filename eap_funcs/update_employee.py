@@ -4,9 +4,28 @@ from models import mysql, EditEmployeeForm, app
 from flask import redirect, url_for, session, render_template, flash, request
 
 def update_employee_route(employee_id):
+    updated__employee =[]
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM employee WHERE employee_id = %s", (employee_id,))
     employee = cursor.fetchone()
+    cursor.close()
+
+    cursor = mysql.connection.cursor()    
+    cursor.execute("""
+            SELECT
+                e1.*,
+                CONCAT(e2.firstname, ' ', e2.lastname) AS manager_name,
+                p.project_name
+            FROM
+                employee e1
+            LEFT JOIN employee e2 ON
+                e1.manager_id = e2.employee_id
+            LEFT JOIN project p ON
+                e1.project_id = p.project_id
+            WHERE
+                e1.employee_id = %s;
+    """, (employee_id,))
+    updated__employee = cursor.fetchone() 
     cursor.close()
 
     if not employee:
@@ -52,7 +71,7 @@ def update_employee_route(employee_id):
         }
 
         # Update the database with the new data
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connection.cursor()        
         cursor.execute("""
             UPDATE employee
             SET firstname = %(first_name)s, lastname = %(last_name)s,
@@ -66,4 +85,6 @@ def update_employee_route(employee_id):
         flash("Employee details updated successfully")
         return redirect(url_for('update_employee', employee_id=employee_id))
 
-    return render_template('update_employee.html', form=form, employee_id=employee_id)
+        
+
+    return render_template('update_employee.html', form=form, employee_id=employee_id, updated__employee=updated__employee )

@@ -1,0 +1,138 @@
+{% extends 'app.html' %}
+{% block content %}
+
+<div class="container">
+    <h2>Edit Employee:</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-success">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form action="/update_employee/{{ employee_id }}" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <hr class="mb-4">
+        <h4 class="mb-3">Personal Information:</h4>
+        <!-- First Name Field -->
+        <div class="form-group">
+            {{ form.first_name.label(for="first_name") }}
+            {{ form.first_name(id="first_name", class="form-control") }}
+            {{ form[0]}}
+
+            {% if form.first_name.errors %}
+            <ul>
+                {% for error in form.first_name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- Last Name Field -->
+        <div class="form-group">
+            {{ form.last_name.label(for="last_name") }}
+            {{ form.last_name(id="last_name", class="form-control") }}
+            {% if form.last_name.errors %}
+            <ul>
+                {% for error in form.last_name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- Hire Date Field -->
+        <div class="form-group">
+            {{ form.hire_date.label(for="hire_date") }}
+            {{ form.hire_date(id="hire_date", class="form-control") }}
+            {% if form.hire_date.errors %}
+            <ul>
+                {% for error in form.hire_date.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- End of Employment Field -->
+        <div class="form-group">
+            {{ form.end_employment.label(for="end_employment") }}
+            {{ form.end_employment(id="end_employment", class="form-control") }}
+            {% if form.end_employment.errors %}
+            <ul>
+                {% for error in form.end_employment.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <hr class="mb-4">
+        <h4 class="mb-3">Project Information:</h4>
+        <!-- Project Field -->
+        <div class="form-group">
+            {{ form.project.label(for="project") }}
+            {{ form.project(id="project", class="form-control") }}
+            {% if form.project.errors %}
+            <ul>
+                {% for error in form.project.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- Manager Field -->
+        <div class="form-group">
+            {{ form.manager.label(for="manager") }}
+            {{ form.manager(id="manager", class="form-control") }}
+            {% if form.manager.errors %}
+            <ul>
+                {% for error in form.manager.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- Role Field -->
+        <div class="form-group">
+            {{ form.role.label(for="role") }}
+            {{ form.role(id="role", class="form-control") }}
+            {% if form.role.errors %}
+            <ul>
+                {% for error in form.role.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <!-- Image Field -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    {% if form.image.data %}
+                    <img src="{{ url_for('static', filename='uploads/' + form.image.data) }}" id="current-image"
+                        style="max-width: 100px; max-height: 100px;" class="rounded-circle">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='uploads/default.png') }}" id="current-image"
+                        style="max-width: 100px; max-height: 100px;" class="rounded-circle">
+                    {% endif %}
+                </div>
+                <div class="col-sm-8" style="display: flex; align-items: center;">
+                    {{ form.image(id="image", value="default.png", class="form-control-file") }}
+                    {% if form.image.errors %}
+                    <ul>
+                        {% for error in form.image.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        {{ form.submit(class="btn btn-dark mt-4") }}
+    </form>
+</div>
+
+{% endblock %}
