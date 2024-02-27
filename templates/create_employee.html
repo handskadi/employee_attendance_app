@@ -1,0 +1,371 @@
+{% extends 'elements/dashboard_app.html' %}
+{% block content %}
+
+<main class="d-flex flex-nowrap">
+  <!-- Sidebar Section -->
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+    <!-- Logo/Brand -->
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <svg class="bi pe-none me-2" width="40" height="32">
+        <use xlink:href="#bootstrap" />
+      </svg>
+      <span class="fs-4">EAP</span>
+    </a>
+    <hr>
+    <!-- Navigation Links -->
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item ">
+        <a href="/dashboard" class="nav-link link-body-emphasis" aria-current="page">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+          </svg>
+          Dashboard
+        </a>
+      </li>
+      <!-- <li>
+          <a href="/" class="nav-link link-body-emphasis">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                  <use xlink:href="#home" />
+              </svg>
+              Home
+          </a>
+      </li> -->
+
+      <li>
+        <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
+          aria-expanded="false">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#grid" />
+          </svg>
+
+          Project
+        </button>
+        <div class="collapse" id="project-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                Projects</a>
+            </li>
+            <li><a href="/create_project" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                Project</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li>
+        <button class="nav-link  active" data-bs-toggle="collapse" data-bs-target="#employee-collapse"
+          aria-expanded="false">
+
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#people-circle" />
+          </svg>
+          Employee
+        </button>
+        <div class="collapse" id="employee-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="/employees" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                Employees</a>
+            </li>
+            <li><a href="/create_employee" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                Employee</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li>
+        <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#attendance-collapse"
+          aria-expanded="false">
+          <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#table" />
+          </svg>
+          Attendance
+        </button>
+        <div class="collapse" id="attendance-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                Attendances</a>
+            </li>
+            <li><a href="/add_attendance" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                Attendance</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <hr>
+    <!-- User Dropdown Menu -->
+    {% if user %}
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{{ url_for('static', filename='uploads/' + logged_in_employee[9]) }}"
+          alt="{{ logged_in_employee[6] }} Employee" title="{{ logged_in_employee[7] }}" width="35" height="35"
+          class="rounded-circle me-2">
+        <strong> {{logged_in_employee[6] +" "+ logged_in_employee[7]}} </strong>
+      </a>
+      <ul class="dropdown-menu text-small shadow">
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="/update_employee/{{ logged_in_employee[0] }}">Profile</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+      </ul>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- Divider between Sidebar and Content -->
+  <div class="b-example-divider b-example-vr"></div>
+
+  <!-- Content Section -->
+  <div class="flex-grow-1 p-3 overflow-auto">
+
+    <!-- Breadcrumb -->
+    <div class="container my-5">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+          <li class="breadcrumb-item">
+            <a class="link-body-emphasis" href="/">
+              <svg class="bi" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              <span class="visually-hidden">Home</span>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page"> Create New Employee
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Form Start -->
+    <div class="container">
+      <form class="needs-validation" action="/create_employee" method="POST" enctype="multipart/form-data">
+        <div class="row g-5">
+          <div class="col-md-5 col-lg-4 order-md-last">
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-header">Profile Picture</div>
+              <div class="card-body text-center">
+                <img id="preview-image" class="img-account-profile rounded-circle mb-2"
+                  src="{{ url_for('static', filename='uploads/img_avatar1.png') }}" alt="">
+                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                {{ form.image(id="image", class="form-control", style="display: none;", onchange="previewImage(event)")
+                }}
+                <label for="image" class="btn btn-primary custom-upload-button">Upload new image</label>
+                <div class="invalid-feedback">
+                  {% if form.image.errors %}
+                  <ul>
+                    {% for error in form.image.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <script>
+                function previewImage(event) {
+                  const input = event.target;
+                  if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                      document.getElementById('preview-image').src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                  }
+                }
+              </script>
+
+            </div>
+            <br>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Project</h6>
+                  <small class="text-body-secondary">MK Project</small>
+                </div>
+                <span class="text-body-secondary">Active</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Manager</h6>
+                  <small class="text-body-secondary">Mohamed KADI</small>
+                </div>
+                <span class="text-body-secondary">Project Manager</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-7 col-lg-8">
+            <h4 class="mb-3">Employee Information</h4>
+            {{ form.hidden_tag() }}
+            <div class="row g-3">
+              <div class="col-sm-6">
+                {{ form.first_name.label(for="first_name")}}
+                {{ form.first_name(id="first_name", class="form-control")}}
+                <div class="invalid-feedback">
+                  {% if form.first_name.errors %}
+                  <ul>
+                    {% for error in form.first_name.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                {{ form.last_name.label(for="last_name")}}
+                {{ form.last_name(id="last_name", class="form-control")}}
+                <div class="invalid-feedback">
+                  {% if form.last_name.errors %}
+                  <ul>
+                    {% for error in form.last_name.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-12">
+                {{ form.username.label(for="username", class="form-label")}}
+                <div class="input-group has-validation">
+                  <span class="input-group-text">@</span>
+                  {{ form.username(id="username", class="form-control", placeholder="username")}}
+                  <div class="invalid-feedback">
+                    {% if form.last_name.errors %}
+                    <ul>
+                      {% for error in form.last_name.errors %}
+                      <li> {{ error }}</li>
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                {{ form.email.label(for="email", class="form-label")}}
+                {{ form.email(id="email", class="form-control", placeholder="you@example.com")}}
+                <div class="invalid-feedback">
+                  {% if form.email.errors %}
+                  <ul>
+                    {% for error in form.email.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-12">
+                {{ form.password.label(for="password", class="form-label")}}
+                {{ form.password(id="password", class="form-control", placeholder="your password")}}
+                <div class="invalid-feedback">
+                  {% if form.password.errors %}
+                  <ul>
+                    {% for error in form.password.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-12">
+                <h4 class="mb-3">Project Details</h4>
+              </div>
+
+              <div class="col-md-4">
+                {{ form.role.label(for="role", class="form-label")}}
+                {{ form.role(id="role", class="form-select")}}
+                <div class="invalid-feedback">
+                  {% if form.role.errors %}
+                  <ul>
+                    {% for error in form.role.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                {{ form.project.label(for="project", class="form-label")}}
+                {{ form.project(id="project", class="form-select")}}
+                <div class="invalid-feedback">
+                  {% if form.project.errors %}
+                  <ul>
+                    {% for error in form.project.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                {{ form.manager.label(for="manager", class="form-label")}}
+                {{ form.manager(id="manager", class="form-select")}}
+                <div class="invalid-feedback">
+                  {% if form.manager.errors %}
+                  <ul>
+                    {% for error in form.manager.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-6">
+                {{ form.hire_date.label(for="hire_date", class="form-label")}}
+                {{ form.hire_date(id="hire_date", class="form-control")}}
+                <div class="invalid-feedback">
+                  {% if form.hire_date.errors %}
+                  <ul>
+                    {% for error in form.hire_date.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-6">
+                {{ form.end_employment.label(for="end_employment", class="form-label")}}
+                {{ form.end_employment(id="end_employment", class="form-control")}}
+                <div class="invalid-feedback">
+                  {% if form.end_employment.errors %}
+                  <ul>
+                    {% for error in form.end_employment.errors %}
+                    <li> {{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
+            <hr class="my-4">
+            {{ form.submit(class="w-100 btn btn-primary btn-lg")}}
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Form  ENd-->
+    <hr class="my-4">
+    <div class="container">
+      <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+      </footer>
+    </div>
+
+  </div>
+</main>
+
+{% endblock %}

@@ -1,7 +1,5 @@
-{% extends 'elements/employee_app.html' %}
+{% extends 'elements/dashboard_app.html' %}
 {% block content %}
-
-
 
 <main class="d-flex flex-nowrap">
     <!-- Sidebar Section -->
@@ -24,17 +22,17 @@
                     Dashboard
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="/" class="nav-link link-body-emphasis">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#home" />
                     </svg>
                     Home
                 </a>
-            </li>
+            </li> -->
 
             <li>
-                <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
+                <button class="nav-link active" data-bs-toggle="collapse" data-bs-target="#project-collapse"
                     aria-expanded="false">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#grid" />
@@ -44,7 +42,8 @@
                 </button>
                 <div class="collapse" id="project-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                        <li><a href="/projects"
+                                class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
                                 Projects</a>
                         </li>
                         <li><a href="/create_project"
@@ -55,8 +54,8 @@
             </li>
 
             <li>
-                <button class="nav-link  active" data-bs-toggle="collapse" data-bs-target="#employee-collapse"
-                    aria-expanded="false">
+                <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                    data-bs-target="#employee-collapse" aria-expanded="false">
 
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#people-circle" />
@@ -109,7 +108,7 @@
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="/edit_employee/{{ logged_in_employee[0] }}">Profile</a></li>
+                <li><a class="dropdown-item" href="/update_employee/{{ logged_in_employee[0] }}">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -141,7 +140,7 @@
                     <li class="breadcrumb-item">
                         <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"> All Employees
+                    <li class="breadcrumb-item active" aria-current="page"> All Projects
                     </li>
                 </ol>
             </nav>
@@ -149,103 +148,92 @@
 
         <!-- Content Heading -->
         <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
-            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Project Managers</h3>
-            <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4">
-                {% for employee_data in all_employees %}
-                {% if employee_data[8] == 'project_manager'%}
-                <div class="col-sm-12">
-                    <div class="card">
-                        {% if employee_data[9] == 'default.png' %}
-                        <img class="card-img-top" src="{{ url_for('static', filename='images/img_avatar1.png') }}"
-                            alt="{{ employee_data[6] + ' ' + employee_data[7] }} Employee"
-                            title="{{ employee_data[6] + ' ' + employee_data[7] }}">
-                        {% else %}
-                        <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + employee_data[9]) }}"
-                            alt="{{ employee_data[6] + ' ' + employee_data[7] }} Employee"
-                            title="{{ employee_data[6] + ' ' + employee_data[7] }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h6 class="card-title" style="font-size: .8rem;font-weight: 600;">
-                                {{ employee_data[6] + ' ' + employee_data[7] }}</h6>
-                            <p style="font-size: 15px">
-                                {% if employee_data[8] == 'project_manager' %}
-                                Project Manager
-                                {% else %}
-                                Employee
-                                {% endif %}
-                            </p>
+            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Active Projects</h3>
 
-                            <p class="card-text">
-                            <div class="fw-bold">Projects:</div>
-                            {{employee_data[11]}}
-
-
-                            </p>
-                            <a href="/update_employee/{{ employee_data[0]}}" class="btn btn-dark">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                                Edit Manager</a>
-                        </div>
+            <ol class="list-group">
+                {% for project_data in all_projects %}
+                {% if project_data[2] == 1 %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{project_data[1]}}</div>
+                        {{project_data[3]}}
                     </div>
-                </div>
+                    <span class="badge bg-dark ">Manager Name</span>
+                </li>
                 {% endif %}
                 {% endfor %}
-            </div>
+            </ol>
         </div>
 
         <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
-            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Employees</h3>
-            <div class="row row-cols-lg-5 row-cols-md-2 row-cols-sm-1 g-4">
-                {% for employee_data in all_employees %}
-                {% if employee_data[8] == 'employee'%}
-                <div class="col-sm-12">
-                    <div class="card">
-                        {% if employee_data[9] == 'default.png' %}
-                        <img class="card-img-top" src="{{ url_for('static', filename='images/img_avatar1.png') }}"
-                            alt="{{ employee_data[6] + ' ' + employee_data[7] }} Employee"
-                            title="{{ employee_data[6] + ' ' + employee_data[7] }}">
-                        {% else %}
-                        <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + employee_data[9]) }}"
-                            alt="{{ employee_data[6] + ' ' + employee_data[7] }} Employee"
-                            title="{{ employee_data[6] + ' ' + employee_data[7] }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h6 class="card-title" style="font-size: .8rem;font-weight: 600;">
-                                {{ employee_data[6] + ' ' + employee_data[7] }}</h6>
-                            <p style="font-size: 15px">
-                                {% if employee_data[8] == 'project_manager' %}
-                                Project Manager
-                                {% else %}
-                                Employee
-                                {% endif %}
-                            </p>
-
-                            <p class="card-text">
-                            <div class="fw-bold">Projects:</div>
-                            {{employee_data[11]}}
-
-
-                            </p>
-                            <a href="/update_employee/{{ employee_data[0]}}" class="btn btn-dark">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                                Edit Manager</a>
+            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">All Projects</h3>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 mb-3">
+                        <div class="row justify-content-end">
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" id="sort_button"
+                                    onclick="sortProjects()">Sort by Active</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                {% endif %}
-                {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ol class="list-group" id="project_list">
+                            {% for project_data in all_projects %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">{{ project_data[1] }}</div>
+                                    {{ project_data[3] }}
+                                </div>
+                                {% if project_data[2] == 1 %}
+                                <span class="badge bg-success rounded-pill">Active</span>
+                                {% else %}
+                                <span class="badge bg-danger rounded-pill">Inactive</span>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
             </div>
+
+            <script>
+                var ascending = true; // Initial sorting order
+
+                function sortProjects() {
+                    var projectsList = document.getElementById("project_list");
+                    var projects = projectsList.getElementsByTagName("li");
+
+                    var sortedProjects = Array.from(projects).sort(function (a, b) {
+                        var activeA = (a.querySelector('.badge').innerText === 'Active') ? 1 : 0;
+                        var activeB = (b.querySelector('.badge').innerText === 'Active') ? 1 : 0;
+                        if (ascending) {
+                            return activeB - activeA; // Sort by active status (active first)
+                        } else {
+                            return activeA - activeB; // Sort by inactive status (inactive first)
+                        }
+                    });
+
+                    projectsList.innerHTML = "";
+                    sortedProjects.forEach(function (project) {
+                        projectsList.appendChild(project);
+                    });
+
+                    // Toggle button text
+                    var sortButton = document.getElementById("sort_button");
+                    if (ascending) {
+                        sortButton.innerText = "Sort by Inactive";
+                    } else {
+                        sortButton.innerText = "Sort by Active";
+                    }
+
+                    ascending = !ascending; // Toggle sorting order
+                }
+            </script>
+
+
         </div>
         <br>
         <nav aria-label="Page navigation example">

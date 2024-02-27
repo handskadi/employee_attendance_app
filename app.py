@@ -9,7 +9,8 @@ from eap_funcs.create_employee import create_employee_route
 from eap_funcs.add_attendance import add_attendance_route
 from eap_funcs.update_employee import update_employee_route
 from eap_funcs.home import homepage_route
-from eap_funcs.employees import employees_route
+from eap_funcs.list_employees import employees_route
+from eap_funcs.list_projects import projects_route
 
 
 @app.route('/')
@@ -55,14 +56,23 @@ def attendance():
 
 
 @app.route('/update_employee/<int:employee_id>', methods=['GET', 'POST'])
-def edit_employee(employee_id):
+def update_employee(employee_id):
     return update_employee_route(employee_id)
 
 @app.route('/employees', methods=['GET','POST'])
 def employees():
     dashboard_data = dashboard(session)
     if dashboard_data:
-        return render_template('employees.html', **dashboard_data)
+        return render_template('list_employees.html', **dashboard_data)
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/projects', methods=['GET','POST'])
+def projects():
+    dashboard_data = dashboard(session)
+    if dashboard_data:
+        return render_template('list_projects.html', **dashboard_data)
     else:
         return redirect(url_for('login'))
 

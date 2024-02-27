@@ -24,14 +24,14 @@
                     Dashboard
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="/" class="nav-link link-body-emphasis">
                     <svg class="bi pe-none me-2" width="16" height="16">
                         <use xlink:href="#home" />
                     </svg>
                     Home
                 </a>
-            </li>
+            </li> -->
 
             <li>
                 <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
@@ -109,7 +109,7 @@
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="/edit_employee/{{ logged_in_employee[0] }}">Profile</a></li>
+                <li><a class="dropdown-item" href="/update_employee/{{ logged_in_employee[0] }}">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -218,7 +218,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="container">
+            <footer class="py-3 my-4">
+                <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+            </footer>
+        </div>
     </div>
 </main>
 
