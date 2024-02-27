@@ -142,6 +142,7 @@
             <path
                 d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
         </symbol>
+        
     </svg>
 
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
@@ -223,7 +224,174 @@
             <path
                 d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
         </symbol>
+        
     </svg>
+    <main class="d-flex flex-nowrap">
+        <!-- Sidebar Section -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+            <!-- Logo/Brand -->
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi pe-none me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <span class="fs-4">EAP</span>
+            </a>
+            <hr>
+            <!-- Navigation Links -->
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item ">
+                    <a href="/dashboard" class="nav-link link-body-emphasis">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#speedometer2" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="/" class="nav-link link-body-emphasis">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#home" />
+                        </svg>
+                        Home
+                    </a>
+                </li> -->
+    
+                <li>
+                    <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
+                        aria-expanded="false">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#grid" />
+                        </svg>
+    
+                        Project
+                    </button>
+                    <div class="collapse" id="project-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="/projects" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                    Projects</a>
+                            </li>
+                            <li><a href="/create_project"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                                    Project</a></li>
+                        </ul>
+                    </div>
+                </li>
+    
+                <li>
+                    <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                        data-bs-target="#employee-collapse" aria-expanded="false">
+    
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#people-circle" />
+                        </svg>
+                        Employee
+                    </button>
+                    <div class="collapse" id="employee-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="/employees"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                    Employees</a>
+                            </li>
+                            <li><a href="/create_employee"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">New
+                                    Employee</a></li>
+                        </ul>
+                    </div>
+                </li>
+    
+                <li>
+                    <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                        data-bs-target="#attendance-collapse" aria-expanded="false">
+                        <svg class="bi pe-none me-2" width="16" height="16">
+                            <use xlink:href="#table" />
+                        </svg>
+                        Attendance
+                    </button>
+                    <div class="collapse" id="attendance-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="/attendances" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                                    Attendances</a>
+                            </li>
+                            <li><a href="/add_attendance"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                    Attendance</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <hr>
+            <!-- User Dropdown Menu -->
+            {% if user %}
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='uploads/' + logged_in_employee[9]) }}"
+                        alt="{{ logged_in_employee[6] }} Employee" title="{{ logged_in_employee[7] }}" width="35"
+                        height="35" class="rounded-circle me-2">
+                    <strong> {{logged_in_employee[6] +" "+ logged_in_employee[7]}} </strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="/update_employee/{{ logged_in_employee[0] }}">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+                </ul>
+            </div>
+            {% endif %}
+    
+        </div>
+        
+        <script>
+            // Function to add highlight to the active page link
+            function highlightActiveLink() {
+                // Get the current page URL
+                var currentPageUrl = window.location.pathname;
+        
+                // Remove active class and aria-current attribute from all navigation links
+                var navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                    link.style.color = ''; // Reset color to default
+                });
+        
+                // Add active class and aria-current attribute to the corresponding navigation link
+                if (currentPageUrl.includes('/dashboard')) {
+                    var dashboardLink = document.querySelector('a[href="/dashboard"]');
+                    dashboardLink.classList.add('active');
+                    dashboardLink.setAttribute('aria-current', 'page');
+                    dashboardLink.style.setProperty('color', 'white', 'important');
+                } else if (currentPageUrl.includes('/employees') || currentPageUrl.includes('/create_employee')) {
+                    var employeeLink = document.querySelector('button[data-bs-target="#employee-collapse"]');
+                    employeeLink.classList.add('active');
+                    employeeLink.setAttribute('aria-current', 'page');
+                    employeeLink.style.setProperty('color', 'white', 'important');
+                } else if (currentPageUrl.includes('/projects') || currentPageUrl.includes('/create_project')) {
+                    var projectLink = document.querySelector('button[data-bs-target="#project-collapse"]');
+                    projectLink.classList.add('active');
+                    projectLink.setAttribute('aria-current', 'page');
+                    projectLink.style.setProperty('color', 'white', 'important');
+                } else if (currentPageUrl.includes('/attendances') || currentPageUrl.includes('/add_attendance')) {
+                    var attendanceLink = document.querySelector('button[data-bs-target="#attendance-collapse"]');
+                    attendanceLink.classList.add('active');
+                    attendanceLink.setAttribute('aria-current', 'page');
+                    attendanceLink.style.setProperty('color', 'white', 'important');
+                } else {
+                    // If no specific page is matched, add active class to all links
+                    navLinks.forEach(function(link) {
+                        link.classList.add('active');
+                        link.style.setProperty('color', 'white', 'important');
+                    });
+                }
+            }
+        
+            // Call the function when the page loads
+            window.onload = highlightActiveLink;
+        </script>
+        
+
 
     {% block content %}
 
