@@ -11,8 +11,60 @@ from eap_funcs.update_employee import update_employee_route
 from eap_funcs.home import homepage_route
 from eap_funcs.list_employees import employees_route
 from eap_funcs.list_projects import projects_route
+from eap_funcs.update_project import update_project_route
 
 
+
+# Main Dashboard 
+@app.route('/dashboard')
+def dashboard_route():
+    dashboard_data = dashboard(session)
+    if dashboard_data:
+        return render_template('dashboard.html', **dashboard_data)
+    else:
+        return redirect(url_for('login'))
+
+
+# Employee CRUD
+@app.route('/create_employee', methods=['GET','POST'])
+def register():
+    return create_employee_route(app)
+
+@app.route('/employees', methods=['GET','POST'])
+def employees():
+    dashboard_data = dashboard(session)
+    if dashboard_data:
+        return render_template('list_employees.html', **dashboard_data)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/update_employee/<int:employee_id>', methods=['GET', 'POST'])
+def update_employee(employee_id):
+    return update_employee_route(employee_id)
+
+@app.route('/add_attendance', methods=['GET','POST'])
+def attendance():
+    return add_attendance_route()
+
+
+# Project CRUD
+@app.route('/create_project', methods=['GET','POST'])
+def project():
+    return create_project_route()
+
+@app.route('/projects', methods=['GET','POST'])
+def create_project():
+    dashboard_data = dashboard(session)
+    if dashboard_data:
+        return render_template('list_projects.html', **dashboard_data)
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/update_project/<int:project_id>', methods=['GET', 'POST'])
+def update_project(project_id):
+    return update_project_route(project_id)
+
+# Index, login, logout  & 404
 @app.route('/')
 def index():
     return homepage_route()
@@ -30,52 +82,6 @@ def login():
             return redirect(url_for('login'))
     
     return render_template('login.html', form=form)
-
- 
-@app.route('/dashboard')
-def dashboard_route():
-    dashboard_data = dashboard(session)
-    if dashboard_data:
-        return render_template('dashboard.html', **dashboard_data)
-    else:
-        return redirect(url_for('login'))
-
-@app.route('/create_project', methods=['GET','POST'])
-def project():
-    return create_project_route()
-
-
-@app.route('/create_employee', methods=['GET','POST'])
-def register():
-    return create_employee_route(app)
-
-
-@app.route('/add_attendance', methods=['GET','POST'])
-def attendance():
-    return add_attendance_route()
-
-
-@app.route('/update_employee/<int:employee_id>', methods=['GET', 'POST'])
-def update_employee(employee_id):
-    return update_employee_route(employee_id)
-
-@app.route('/employees', methods=['GET','POST'])
-def employees():
-    dashboard_data = dashboard(session)
-    if dashboard_data:
-        return render_template('list_employees.html', **dashboard_data)
-    else:
-        return redirect(url_for('login'))
-
-
-@app.route('/projects', methods=['GET','POST'])
-def create_project():
-    dashboard_data = dashboard(session)
-    if dashboard_data:
-        return render_template('list_projects.html', **dashboard_data)
-    else:
-        return redirect(url_for('login'))
-
 
 @app.route('/logout')
 def logout():

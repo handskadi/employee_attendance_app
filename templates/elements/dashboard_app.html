@@ -342,7 +342,7 @@
             {% endif %}
     
         </div>
-        
+
         <script>
             // Function to add highlight to the active page link
             function highlightActiveLink() {
@@ -363,12 +363,12 @@
                     dashboardLink.classList.add('active');
                     dashboardLink.setAttribute('aria-current', 'page');
                     dashboardLink.style.setProperty('color', 'white', 'important');
-                } else if (currentPageUrl.includes('/employees') || currentPageUrl.includes('/create_employee')) {
+                } else if (currentPageUrl.includes('/employees') || currentPageUrl.includes('/create_employee') || currentPageUrl.includes('/update_employee/')) {
                     var employeeLink = document.querySelector('button[data-bs-target="#employee-collapse"]');
                     employeeLink.classList.add('active');
                     employeeLink.setAttribute('aria-current', 'page');
                     employeeLink.style.setProperty('color', 'white', 'important');
-                } else if (currentPageUrl.includes('/projects') || currentPageUrl.includes('/create_project')) {
+                } else if (currentPageUrl.includes('/projects') || currentPageUrl.includes('/create_project') || currentPageUrl.includes('/update_project/')) {
                     var projectLink = document.querySelector('button[data-bs-target="#project-collapse"]');
                     projectLink.classList.add('active');
                     projectLink.setAttribute('aria-current', 'page');
@@ -391,7 +391,6 @@
             window.onload = highlightActiveLink;
         </script>
         
-
 
     {% block content %}
 

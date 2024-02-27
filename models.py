@@ -35,6 +35,14 @@ class CreateForm(FlaskForm):
     description = StringField("Description", validators=[DataRequired()])
     submit = SubmitField("Create Project")
 
+
+class UpdateProjectForm(FlaskForm):
+    project_name = StringField("Project Name", validators=[DataRequired()])
+    is_active = BooleanField("Active")
+    description = StringField("Description", validators=[DataRequired()])
+    submit = SubmitField("Update Project")
+
+
 class AttendanceForm(FlaskForm):
     # retive all employees
     with app.app_context():
