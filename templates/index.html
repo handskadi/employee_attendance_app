@@ -15,10 +15,9 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Documentation</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    <li><a href="#features" class="nav-link px-2 text-white">Features</a></li>
+                    <li><a href="https://www.mohamedkadi.com" class="nav-link px-2 text-white">Documentation</a></li>
+                    <li><a href="#about" class="nav-link px-2 text-white">About</a></li>
                 </ul>
 
                 <div class="text-end">
@@ -57,30 +56,25 @@
         </h2>
     </header>
 
-    <div class="container col-xxl-8 px-4 py-5">
+    <div class="container col-xxl-8 px-4 py-5" id="about">
         <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
                 <img src="{{ url_for('static', filename='images/bootstrap-themes.png') }}"
                     class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
             </div>
             <div class="col-lg-6">
-                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Responsive left-aligned hero with image
+                <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">E.A.P - Your Employee Attendance Solution
                 </h1>
-                <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the
-                    world’s most popular front-end open source toolkit, featuring Sass variables and mixins,
-                    responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Primary</button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
-                </div>
+                <p class="lead">The Employee Attendance App is designed to efficiently track employee time and attendance, providing project managers and general managers with a user-friendly interface. The app categorizes users into General Managers and Project Managers and Employees.</p>
+     
             </div>
         </div>
     </div>
 
     <div class="b-example-divider"></div>
 
-    <div class="container px-4 py-5" id="icon-grid">
-        <h2 class="pb-2 border-bottom">Attendance App Features</h2>
+    <div class="container px-4 py-5" id="icon-grid" >
+        <h2 class="pb-2 border-bottom" id="features">Attendance App Features</h2>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
             <div class="col d-flex align-items-start">
@@ -88,8 +82,8 @@
                     <use xlink:href="#bootstrap" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Role-Based Access Control</h3>
+                    <p>Implements different access levels (General Manager, Project Manager, Employee) with specific permissions tailored to their roles.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -97,8 +91,8 @@
                     <use xlink:href="#cpu-fill" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Project Management</h3>
+                    <p>Enables General Managers to create and manage projects, assigning them to Project Managers.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -106,8 +100,8 @@
                     <use xlink:href="#calendar3" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Employee Management</h3>
+                    <p>Allows General Managers to create and manage employee profiles, assigning them to Project Managers and projects.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -115,8 +109,8 @@
                     <use xlink:href="#home" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Attendance Tracking</h3>
+                    <p>Records employee attendance data, with Project Managers able to add attendance records for their assigned employees.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -124,8 +118,8 @@
                     <use xlink:href="#speedometer2" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Reporting System</h3>
+                    <p>Generates comprehensive attendance reports for General Managers, including data from all projects, employees, and managers.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -133,8 +127,8 @@
                     <use xlink:href="#toggles2" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">History Viewing</h3>
+                    <p>Provides a historical view of attendance records, accessible to all user roles for their respective scope (personal, project-specific, or organization-wide).</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -142,8 +136,8 @@
                     <use xlink:href="#geo-fill" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Notification System</h3>
+                    <p>Sends reminders and alerts for upcoming shifts, attendance discrepancies, or pending time-off requests.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -151,8 +145,8 @@
                     <use xlink:href="#tools" />
                 </svg>
                 <div>
-                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Featured title</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">User Management</h3>
+                    <p> General Managers can add, modify, or remove managers and employees, ensuring an up-to-date organizational structure.</p>
                 </div>
             </div>
         </div>
@@ -185,14 +179,13 @@
             <svg class="bi mt-5 mb-3" width="48" height="48">
                 <use xlink:href="#check2-circle" />
             </svg>
-            <h1 class="text-body-emphasis">Placeholder jumbotron</h1>
+            <h1 class="text-body-emphasis">Attendance Management Suite</h1>
             <p class="col-lg-6 mx-auto mb-4">
-                This faded back jumbotron is useful for placeholder content. It's also a great way to add a bit of
-                context to a page or section when no content is available and to encourage visitors to take a
-                specific action.
+                Attendance Master simplifies attendance tracking and management with role-based access control. General Managers effortlessly assign projects 
+                and employees, while Project Managers efficiently log attendance. Custom reports offer detailed insights for informed decision-making.
             </p>
             <button class="btn btn-primary px-5 mb-5" type="button">
-                Call to action
+                Get It Now!
             </button>
         </div>
     </div>
@@ -210,11 +203,10 @@
             </a>
 
             <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="https://www.mohamedkadi.com" class="nav-link px-2 text-body-secondary">Documentation</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link px-2 text-body-secondary">About</a></li>
             </ul>
         </footer>
     </div>
