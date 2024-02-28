@@ -12,6 +12,7 @@ from eap_funcs.home import homepage_route
 from eap_funcs.list_employees import employees_route
 from eap_funcs.update_project import update_project_route
 from eap_funcs.list_attendance import list_attendance_route
+from eap_funcs.addUpdate_attendance import get_attendance_route,update_attendance_route
 from functools import wraps
 
 # Function to check if the user is logged in (decorator)
@@ -79,6 +80,20 @@ def add_attendance():
 @login_required
 def list_attendance():
     return list_attendance_route()
+
+
+# get attendance with Ajax
+@app.route('/get_attendance', methods=['POST'])
+@login_required
+def get_attendance():
+    return get_attendance_route()
+
+
+# get attendance with Ajax
+@app.route('/update_attendance', methods=['POST'])
+@login_required
+def update_attendance():
+    return update_attendance_route()
 
 # Index, login, logout  & 404
 @app.route('/')

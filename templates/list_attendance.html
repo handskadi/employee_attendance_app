@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label for=""></label>
-                    {{ form.submit(class="form-control btn btn-primary")}}
+                    {{ form.submit(class="form-control btn btn-primary",id="displayAtt")}}
                 </div>
             </form>
         </div>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
-        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Employees</h3>
+        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance Sheet</h3>
         <table class="table" id="attendanceTable">
             <thead class="table-dark">
                 <tr>
@@ -95,7 +95,8 @@
                     <td scope="row" class="emp" data-employee_id="{{employee[0]}}">{{employee[7]}} {{employee[6]}}</td>
 
                     {% for date in dates %}
-                    <td scope="col">
+                    <td scope="col" data-date="{{date}}" data-employee_id="{{employee[0]}}"
+                        data-employee_name="{{employee[7]}} {{employee[6]}}">
                         <!--<span><button type="button" class="addUpdateAtt btn btn-success" data-date="{{date}}"
                                 data-employee_id="{{employee[0]}}">+</button></span>-->
                     </td>
@@ -106,7 +107,58 @@
             </tbody>
         </table>
     </div>
+    <!-- modal of creation and update-->
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="attendanceModalLabel">Update Attendance</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="attendanceForm">
+                        <div class="form-group">
+                            <!--<label for="employeeId">Employee ID</label>-->
+                            <input type="hidden" class="form-control" id="attendanceId" name="attendanceId">
+                            <input type="hidden" class="form-control" id="employeeId" name="employeeId">
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeName">Employee Name</label>
+                            <input type="text" class="form-control" id="employeeName" name="employeeName" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceDate">Attendance Date</label>
+                            <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="day_shift_hours">Day Shift Hours</label>
+                            <input class="form-control" name="day_shift_hours" id="day_shift_hours" type="text"
+                                pattern="[0-9]*" inputmode="numeric">
+                        </div>
+                        <div class="form-group">
+                            <label for="night_shift_hours">Night Shift Hours</label>
+                            <input class="form-control" name="night_shift_hours" id="night_shift_hours" type="text"
+                                pattern="[0-9]*" inputmode="numeric">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <input type="text" class="form-control" name="comment" id="comment">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateAttendanceBtn">Update Attendance</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- end modal-->
     <br>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -167,17 +219,32 @@
         var $row = $('#attendanceTable tr:eq(' + rowIndex + ')');
         // Find the table cell (td) at index Y within the selected row
         var $cell = $row.find('td:eq(' + columnIndex + ')');
+        $cell.attr('data-employee_id', employee_id);
+        $cell.attr('data-date', employee_date);
+
         // Set the employee's information
         $cell.html(html);
     }
 
     $(document).ready(function () {
 
+        $('.close').click(function () {
+            $('#attendanceModal').modal('hide');
+        });
+
         var datesList = {{ dates | tojson
     }};
     if (datesList.length == 0) {
         //$('#date_from').val = '2024-01-01';
+        var currentDate = new Date();
+
+        // Format the date as YYYY-MM-DD (e.g., 2024-02-01)
+        var today = currentDate.toISOString().slice(0, 10);
+
         //("here");
+        $('#date_from').val(today);
+        $('#date_to').val(today);
+        $('#displayAtt').click();
     }
 
     var employee_date = null;
@@ -186,38 +253,116 @@
     var html = '';
     {%for employee in employees %}
     {%if employee[10] %}
+    {%for attendance in employee[10] %}
 
     var employee_name = '{{employee[7]}}' + ' ' + '{{employee[6]}}';
-    var employee_date = '{{ employee[10][0][2]}}';
     var employee_id = '{{employee[0]}}';
+    var employee_date = '{{ attendance[2]}}';
+
     console.log(employee_date);
     console.log(employee_name);
-    html = '<span class="badge bg-primary">Day Hours : {{employee[10][0][3]}}</span><br/><span class="badge bg-warning text-dak">Day Hours : {{employee[10][0][4]}}</span>'
+    html = '<span class="badge bg-primary addUpdateAtt" data-attendance_id="{{attendance[0]}}">Day Hours : {{attendance[3]}}</span><br/><span class="badge bg-warning text-dak">Day Hours : {{attendance[4]}}</span>'
     populateAttendanceTable(employee_id, employee_name, employee_date, html);
+    {% endfor %}
 
     {% endif %}
     {% endfor %}
-        //for (let i = 0; i < employees.length; i++) {
-        //console.log(employees[i][10]);
-        // if (employees[i][10].length > 0) {
-        //     employee_name = employees[i][7] + ' ' + employees[i][6];
+    //for (let i = 0; i < employees.length; i++) {
+    //console.log(employees[i][10]);
+    // if (employees[i][10].length > 0) {
+    //     employee_name = employees[i][7] + ' ' + employees[i][6];
 
-        //     console.log(JSON.parse(employees[i][10][0][2]));
+    //     console.log(JSON.parse(employees[i][10][0][2]));
 
-        //     //employee_date = new Date(JSON.parse(employees[i][10][2]));
-        //     alert(employee_name);
-        //     alert(employee_date);
-        // }
-        //}
+    //     //employee_date = new Date(JSON.parse(employees[i][10][2]));
+    //     alert(employee_name);
+    //     alert(employee_date);
+    // }
+    //}
+    $('#updateAttendanceBtn').click(function () {
+        var formData = $('#attendanceForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/update_attendance', // Flask route to handle the request
+            data: formData,
+            success: function (response) {
+                // Handle success response
+                console.log(response);
+                // Optionally close the modal or show a success message
+                $('#attendanceModal').modal('hide');
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    });
 
 
+    $('#attendanceTable').on('click', '.addUpdateAtt', function () {
+        var attendanceId = $(this).data('attendance_id');
+        //alert(attendanceId);
+        if (attendanceId) {
+            $.ajax({
+                url: '/get_attendance',
+                type: 'POST',
+                data: { "attendance_id": attendanceId },
+                success: function (response) {
+                    console.log(response);
+                    // Populate modal with response data
+                    //$('#modalContent').html(response);
+                    console.log("success get attendance");
+                    $('#attendanceId').val(response[0]);
+                    $('#employeeName').val(response[7]);
+                    $('#employeeId').val(response[1]);
+                    $('#attendanceDate').val(response[8]);
+                    $('#day_shift_hours').val(Math.round(response[3]));
+                    $('#night_shift_hours').val(Math.round(response[4]));
+                    $('#comment').val(response[6]);
+                    $('#attendanceModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        } else {
 
-        // $('#attendanceTable').on('click', '.addUpdateAtt', function () {
-        //     $('#addAttendance').modal('show');
-        // });
+        }
+        //$('#addAttendance').modal('show');
+    });
+    $('#attendanceTable').on('click', 'td', function () {
+
+        //console.log($(this).find('.addUpdateAtt').length);
+        if ($(this).find('.addUpdateAtt').length <= 0) {
+            console.log("add attendance");
+            var date = $(this).data("date");
+            var employee_id = $(this).data("employee_id");
+            //alert(date + " " + employee_id);
+            if (date !== undefined) {
+                $('#attendanceDate').val(date);
+            }
+            if (employee_id !== undefined) {
+                $('#employeeId').val(employee_id);
+                $('#employeeName').val($(this).data("employee_name"));
+            }
+            $('#attendanceId').val('');
+
+            $('#day_shift_hours').val('');
+            $('#night_shift_hours').val('');
+            $('#comment').val();
+            // add attendance modal
+            $('#updateAttendanceBtn').text("Add Attendance");
+            $('#attendanceModalLabel').text("Add Attendance");
+            $('#attendanceModal').modal('show');
+        }
+    });
+
     });
 
 
 </script>
+
+
 
 {% endblock %}

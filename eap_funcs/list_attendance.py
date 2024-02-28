@@ -87,9 +87,10 @@ def list_attendance_route():
             for employee in employees:
                 print("id "+str(employee[0]))
                 attendance_list = get_attendance_data(employee[0], date_from,date_to)
+                print(attendance_list)
                 employee += ( attendance_list,)
                 list_employees.append(employee)
-            print(list_employees)
+            #print(list_employees)
             
                 # mysql.connection.commit()
                 # cursor.close()
