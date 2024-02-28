@@ -2,143 +2,149 @@
 {% block content %}
 
 
-    <!-- Divider between Sidebar and Content -->
-    <div class="b-example-divider b-example-vr"></div>
+<!-- Divider between Sidebar and Content -->
+<div class="b-example-divider b-example-vr"></div>
 
-    <!-- Content Section -->
-    <div class="flex-grow-1 p-3 overflow-auto">
+<!-- Content Section -->
+<div class="flex-grow-1 p-3 overflow-auto">
 
-        <!-- Breadcrumb -->
-        <div class="container my-5">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
-                    <li class="breadcrumb-item">
-                        <a class="link-body-emphasis" href="/">
-                            <svg class="bi" width="16" height="16">
-                                <use xlink:href="#home"></use>
-                            </svg>
-                            <span class="visually-hidden">Home</span>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page"> All Projects
-                    </li>
-                </ol>
-            </nav>
-        </div>
-
-        <!-- Content Heading -->
-        <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
-            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Active Projects</h3>
-
-            <ol class="list-group">
-                {% for project_data in all_projects %}
-                {% if project_data[2] == 1 %}
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">{{project_data[1]}}</div>
-                        {{project_data[3]}}
-                    </div>
-                    <span class="badge bg-dark ">Manager Name</span>
+    <!-- Breadcrumb -->
+    <div class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="/">
+                        <svg class="bi" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        <span class="visually-hidden">Home</span>
+                    </a>
                 </li>
-                {% endif %}
-                {% endfor %}
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> All Projects
+                </li>
             </ol>
-        </div>
+        </nav>
+    </div>
 
-        <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
-            <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">All Projects</h3>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 mb-3">
-                        <div class="row justify-content-end">
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" id="sort_button"
-                                    onclick="sortProjects()">Sort by Active</button>
-                            </div>
+    <!-- Content Heading -->
+    <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
+        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Active Projects</h3>
+
+        <ol class="list-group">
+            {% for project_data in all_projects %}
+            {% if project_data[2] == 1 %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{project_data[1]}}</div>
+                    {{project_data[3]}}
+                </div>
+                <span class="badge bg-dark ">Manager Name</span>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ol>
+    </div>
+
+    <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;" id="allprojec">
+        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">All Projects</h3>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 mb-3">
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-primary" id="sort_button" onclick="sortProjects()">Sort
+                                by Active</button>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <ol class="list-group" id="project_list">
-                            {% for project_data in all_projects %}
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">{{ project_data[1] }}</div>
-                                    {{ project_data[3] }}
-                                </div>
-                                {% if project_data[2] == 1 %}
-                                <span class="badge bg-success rounded-pill">Active</span>
-                                {% else %}
-                                <span class="badge bg-danger rounded-pill">Inactive</span>
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ol>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ol class="list-group" id="project_list">
+                        {% for project_data in all_projects %}
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ project_data[1] }}</div>
+                                {{ project_data[3] }}
+                            </div>
+                            {% if project_data[2] == 1 %}
+                            <span class="badge text-bg-success" style="margin-right:30px;">Active</span>
+                            <a href="/update_project/{{project_data[0]}}" type="button"
+                                class="btn btn-outline-primary">Edit</a>
+                            {% else %}
+                            <span class="badge text-bg-danger" style="margin-right:30px;">Inactive</span>
+                            <a href="/update_project/{{project_data[0]}}" type="button"
+                                class="btn btn-outline-primary">Edit</a>
+                            {% endif %}
+
+                        </li>
+                        <br>
+                        {% endfor %}
+                    </ol>
                 </div>
             </div>
+        </div>
 
-            <script>
-                var ascending = true; // Initial sorting order
+        <script>
+            var ascending = true; // Initial sorting order
 
-                function sortProjects() {
-                    var projectsList = document.getElementById("project_list");
-                    var projects = projectsList.getElementsByTagName("li");
+            function sortProjects() {
+                var projectsList = document.getElementById("project_list");
+                var projects = projectsList.getElementsByTagName("li");
 
-                    var sortedProjects = Array.from(projects).sort(function (a, b) {
-                        var activeA = (a.querySelector('.badge').innerText === 'Active') ? 1 : 0;
-                        var activeB = (b.querySelector('.badge').innerText === 'Active') ? 1 : 0;
-                        if (ascending) {
-                            return activeB - activeA; // Sort by active status (active first)
-                        } else {
-                            return activeA - activeB; // Sort by inactive status (inactive first)
-                        }
-                    });
-
-                    projectsList.innerHTML = "";
-                    sortedProjects.forEach(function (project) {
-                        projectsList.appendChild(project);
-                    });
-
-                    // Toggle button text
-                    var sortButton = document.getElementById("sort_button");
+                var sortedProjects = Array.from(projects).sort(function (a, b) {
+                    var activeA = (a.querySelector('.badge').innerText === 'Active') ? 1 : 0;
+                    var activeB = (b.querySelector('.badge').innerText === 'Active') ? 1 : 0;
                     if (ascending) {
-                        sortButton.innerText = "Sort by Inactive";
+                        return activeB - activeA; // Sort by active status (active first)
                     } else {
-                        sortButton.innerText = "Sort by Active";
+                        return activeA - activeB; // Sort by inactive status (inactive first)
                     }
+                });
 
-                    ascending = !ascending; // Toggle sorting order
+                projectsList.innerHTML = "";
+                sortedProjects.forEach(function (project) {
+                    projectsList.appendChild(project);
+                });
+
+                // Toggle button text
+                var sortButton = document.getElementById("sort_button");
+                if (ascending) {
+                    sortButton.innerText = "Sort by Inactive";
+                } else {
+                    sortButton.innerText = "Sort by Active";
                 }
-            </script>
 
-        </div>
-        <br>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="container">
-            <footer class="py-3 my-4">
-                <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
-            </footer>
-        </div>
+                ascending = !ascending; // Toggle sorting order
+            }
+        </script>
 
     </div>
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+        </footer>
+    </div>
+
+</div>
 </main>
 
 {% endblock %}

@@ -3,9 +3,7 @@
 from models import mysql
 
 def projects_route(session):
-    if 'user_id' in session:
         user_id = session['user_id']
-
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM user where user_id=%s", (user_id,))
         user = cursor.fetchone()

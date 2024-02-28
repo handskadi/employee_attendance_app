@@ -28,6 +28,10 @@ UPLOAD_FOLDER = os.path.join('static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+class ListAttendanceForm(FlaskForm):
+    date_from = DateField('Date From', format='%Y-%m-%d', validators=[DataRequired()])
+    date_to = DateField('Date To', format='%Y-%m-%d', validators=[DataRequired()])
+    submit = SubmitField("Display")
 
 class CreateForm(FlaskForm):
     project_name = StringField("Project Name", validators=[DataRequired()])
@@ -102,6 +106,15 @@ class RegisterForm(FlaskForm):
         cursor.close()
         if user:
             raise ValidationError('Email Already Taken')
+    
+    def validate_username(self, field):  # Corrected method name from validate_user to validate_username
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM user where username=%s", (field.data,))
+        user = cursor.fetchone()
+        cursor.close()
+        if user:
+            raise ValidationError('Username Already Taken')
+
     
     def save_image(self, image):
         if image:

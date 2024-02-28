@@ -15,6 +15,17 @@ def dashboard(session):
         manager_name = []
         is_manager = False
         logged_in_employee = []
+        # total_projects = 0
+        # active_projects  = 0
+        # inactive_projects = 0
+        # total_all_employees = 0
+        # total_general_managers  = 0
+        # total_project_managers  = 0
+        # total_employees = 0
+        # total_day_shift_hours  = 0
+        # total_days = 0
+        # total_night_shift_hours  = 0
+        # average_daily_hours =  0
 
         # Fetch all users' data
         cursor.execute("SELECT * FROM user")
@@ -127,5 +138,5 @@ def dashboard(session):
                 'total_day_shift_hours': total_day_shift_hours,
                 'total_night_shift_hours': total_night_shift_hours, 
                 'total_days': total_days,
-                'average_daily_hours': average_daily_hours
+                'average_daily_hours': average_daily_hours,
             }

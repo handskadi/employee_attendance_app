@@ -2,124 +2,125 @@
 {% block content %}
 
 
-    <!-- Divider between Sidebar and Content -->
-    <div class="b-example-divider b-example-vr"></div>
+<!-- Divider between Sidebar and Content -->
+<div class="b-example-divider b-example-vr"></div>
 
-    <!-- Content Section -->
-    <div class="flex-grow-1 p-3 overflow-auto">
+<!-- Content Section -->
+<div class="flex-grow-1 p-3 overflow-auto">
 
-        <!-- Breadcrumb -->
-        <div class="container my-5">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
-                    <li class="breadcrumb-item">
-                        <a class="link-body-emphasis" href="/">
-                            <svg class="bi" width="16" height="16">
-                                <use xlink:href="#home"></use>
-                            </svg>
-                            <span class="visually-hidden">Home</span>
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page"> Create New Project
-                    </li>
-                </ol>
-            </nav>
-        </div>
+    <!-- Breadcrumb -->
+    <div class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="/">
+                        <svg class="bi" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> Create New Project
+                </li>
+            </ol>
+        </nav>
+    </div>
 
-        <!-- Form Start -->
-        <div class="container">
-            <form class="needs-validation" action="/update_project/{{ project_id }}" method="POST" enctype="multipart/form-data">
-                <div class="row g-5">
-                    <div class="col-md-5 col-lg-4 order-md-last">
-                        <div class="card mb-4 mb-xl-0">
-                            <div class="card-header">Profile Picture</div>
-                            <div class="card-body text-center">
-                                <img id="preview-image" class="img-account-profile rounded-circle mb-2"
-                                    src="{{ url_for('static', filename='uploads/img_avatar1.png') }}" alt="">
-                                <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-
-                            </div>
-
-                            <script>
-                                function previewImage(event) {
-                                    const input = event.target;
-                                    if (input.files && input.files[0]) {
-                                        const reader = new FileReader();
-                                        reader.onload = function (e) {
-                                            document.getElementById('preview-image').src = e.target.result;
-                                        }
-                                        reader.readAsDataURL(input.files[0]);
-                                    }
-                                }
-                            </script>
+    <!-- Form Start -->
+    <div class="container">
+        <form class="needs-validation" action="/update_project/{{ project_id }}" method="POST"
+            enctype="multipart/form-data">
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Profile Picture</div>
+                        <div class="card-body text-center">
+                            <img id="preview-image" class="img-account-profile rounded-circle mb-2"
+                                src="{{ url_for('static', filename='uploads/img_avatar1.png') }}" alt="">
+                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
 
                         </div>
+
+                        <script>
+                            function previewImage(event) {
+                                const input = event.target;
+                                if (input.files && input.files[0]) {
+                                    const reader = new FileReader();
+                                    reader.onload = function (e) {
+                                        document.getElementById('preview-image').src = e.target.result;
+                                    }
+                                    reader.readAsDataURL(input.files[0]);
+                                }
+                            }
+                        </script>
+
                     </div>
+                </div>
 
-                    <div class="col-md-7 col-lg-8">
-                        <h4 class="mb-3">Project Information</h4>
-                        {{ form.hidden_tag() }}
-                        <div class="row g-3">
-                            <div class="col-sm-12">
-                                {{ form.project_name.label(for="project_name")}}
-                                {{ form.project_name(id="project_name", class="form-control")}}
-                                <div class="invalid-feedback">
-                                    {% if form.project_name.errors %}
-                                    <ul>
-                                        {% for error in form.project_name.errors %}
-                                        <li> {{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                {{ form.description.label(for="description")}}
-                                {{ form.description(id="description", class="form-control")}}
-                                <div class="invalid-feedback">
-                                    {% if form.description.errors %}
-                                    <ul>
-                                        {% for error in form.description.errors %}
-                                        <li> {{ error }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                            <div class="custom-control custom-checkbox">
-                                {{ form.is_active(id="is_active", class="custom-control-input")}}
-                                {{ form.is_active.label(for="is_active", class="custom-control-label")}}
-                                {% if form.is_active.errors %}
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Project Information</h4>
+                    {{ form.hidden_tag() }}
+                    <div class="row g-3">
+                        <div class="col-sm-12">
+                            {{ form.project_name.label(for="project_name")}}
+                            {{ form.project_name(id="project_name", class="form-control")}}
+                            <div class="invalid-feedback">
+                                {% if form.project_name.errors %}
                                 <ul>
-                                    {% for error in form.is_active.errors %}
+                                    {% for error in form.project_name.errors %}
                                     <li> {{ error }}</li>
                                     {% endfor %}
                                 </ul>
-
                                 {% endif %}
-
                             </div>
                         </div>
-                        <hr class="my-4">
-                        {{ form.submit(class="w-100 btn btn-primary btn-lg")}}
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Form  ENd-->
-        <hr class="my-4">
-        <div class="container">
-            <footer class="py-3 my-4">
-                <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
-            </footer>
-        </div>
 
+                        <div class="col-sm-12">
+                            {{ form.description.label(for="description")}}
+                            {{ form.description(id="description", class="form-control")}}
+                            <div class="invalid-feedback">
+                                {% if form.description.errors %}
+                                <ul>
+                                    {% for error in form.description.errors %}
+                                    <li> {{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            {{ form.is_active(id="is_active", class="custom-control-input")}}
+                            {{ form.is_active.label(for="is_active", class="custom-control-label")}}
+                            {% if form.is_active.errors %}
+                            <ul>
+                                {% for error in form.is_active.errors %}
+                                <li> {{ error }}</li>
+                                {% endfor %}
+                            </ul>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    {{ form.submit(class="w-100 btn btn-primary btn-lg")}}
+                </div>
+            </div>
+        </form>
     </div>
+    <!-- Form  ENd-->
+    <hr class="my-4">
+    <div class="container">
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+        </footer>
+    </div>
+
+</div>
 </main>
 
 {% endblock %}

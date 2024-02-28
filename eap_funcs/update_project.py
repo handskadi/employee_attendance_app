@@ -37,6 +37,6 @@ def update_project_route(project_id):
         cursor.close()
 
         flash("Project details updated successfully")
-        return redirect(url_for('create_project'))
+        return redirect(url_for('list_projects'))
 
     return render_template('update_project.html', form=form, project_id=project_id)

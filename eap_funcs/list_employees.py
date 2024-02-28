@@ -127,5 +127,5 @@ def employees_route(session):
                 'total_day_shift_hours': total_day_shift_hours,
                 'total_night_shift_hours': total_night_shift_hours, 
                 'total_days': total_days,
-                'average_daily_hours': average_daily_hours
+                'average_daily_hours': average_daily_hours,
             }

@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <script src="{{ url_for('static', filename='assets/js/color-modes.js') }}"></script>
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.122.0">
     <title>Dashboard - Employees Attendance App</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/color-modes.js') }}"></script>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
 
 
@@ -106,18 +107,7 @@
             height: 10rem;
         }
     </style>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            calendar.render();
-        });
-
-    </script>
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/sidebars.css') }}" rel="stylesheet">
@@ -142,7 +132,7 @@
             <path
                 d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
         </symbol>
-        
+
     </svg>
 
     <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
@@ -224,13 +214,14 @@
             <path
                 d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
         </symbol>
-        
+
     </svg>
     <main class="d-flex flex-nowrap">
         <!-- Sidebar Section -->
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
             <!-- Logo/Brand -->
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                 <svg class="bi pe-none me-2" width="40" height="32">
                     <use xlink:href="#bootstrap" />
                 </svg>
@@ -255,19 +246,20 @@
                         Home
                     </a>
                 </li> -->
-    
+
                 <li>
-                    <button class="nav-link link-body-emphasis" data-bs-toggle="collapse" data-bs-target="#project-collapse"
-                        aria-expanded="false">
+                    <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
+                        data-bs-target="#project-collapse" aria-expanded="false">
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#grid" />
                         </svg>
-    
+
                         Project
                     </button>
                     <div class="collapse" id="project-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="/projects" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                            <li><a href="/projects"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
                                     Projects</a>
                             </li>
                             <li><a href="/create_project"
@@ -276,11 +268,11 @@
                         </ul>
                     </div>
                 </li>
-    
+
                 <li>
                     <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
                         data-bs-target="#employee-collapse" aria-expanded="false">
-    
+
                         <svg class="bi pe-none me-2" width="16" height="16">
                             <use xlink:href="#people-circle" />
                         </svg>
@@ -298,7 +290,7 @@
                         </ul>
                     </div>
                 </li>
-    
+
                 <li>
                     <button class="nav-link link-body-emphasis" data-bs-toggle="collapse"
                         data-bs-target="#attendance-collapse" aria-expanded="false">
@@ -309,7 +301,8 @@
                     </button>
                     <div class="collapse" id="attendance-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="/attendances" class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
+                            <li><a href="/attendances"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">All
                                     Attendances</a>
                             </li>
                             <li><a href="/add_attendance"
@@ -340,7 +333,7 @@
                 </ul>
             </div>
             {% endif %}
-    
+
         </div>
 
         <script>
@@ -348,15 +341,15 @@
             function highlightActiveLink() {
                 // Get the current page URL
                 var currentPageUrl = window.location.pathname;
-        
+
                 // Remove active class and aria-current attribute from all navigation links
                 var navLinks = document.querySelectorAll('.nav-link');
-                navLinks.forEach(function(link) {
+                navLinks.forEach(function (link) {
                     link.classList.remove('active');
                     link.removeAttribute('aria-current');
                     link.style.color = ''; // Reset color to default
                 });
-        
+
                 // Add active class and aria-current attribute to the corresponding navigation link
                 if (currentPageUrl.includes('/dashboard')) {
                     var dashboardLink = document.querySelector('a[href="/dashboard"]');
@@ -380,25 +373,25 @@
                     attendanceLink.style.setProperty('color', 'white', 'important');
                 } else {
                     // If no specific page is matched, add active class to all links
-                    navLinks.forEach(function(link) {
+                    navLinks.forEach(function (link) {
                         link.classList.add('active');
                         link.style.setProperty('color', 'white', 'important');
                     });
                 }
             }
-        
+
             // Call the function when the page loads
             window.onload = highlightActiveLink;
         </script>
-        
 
-    {% block content %}
 
-    {% endblock %}
+        {% block content %}
 
-    <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+        {% endblock %}
 
-    <script src="{{ url_for('static', filename='js/sidebars.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='js/sidebars.js') }}"></script>
 </body>
 
 </html>

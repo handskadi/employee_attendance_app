@@ -1,0 +1,223 @@
+{% extends 'elements/dashboard_app.html' %}
+{% block content %}
+
+<!-- Divider between Sidebar and Content -->
+<div class="b-example-divider b-example-vr"></div>
+
+<!-- Content Section -->
+<div class="flex-grow-1 p-3 overflow-auto">
+
+    <!-- Breadcrumb -->
+    <div class="container my-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis" href="/">
+                        <svg class="bi" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        <span class="visually-hidden">Home</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="/dashboard">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"> Attendance List
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Content Heading -->
+    <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
+        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance</h3>
+        <div class="row">
+            <form method="post" action="/attendances">
+                <div class="col-sm-4">
+                    {{ form.date_from.label(for="date_from", class="form-label")}}
+                    {{ form.date_from(id="date_from", class="form-control")}}
+                    <div class="invalid-feedback">
+                        {% if form.date_from.errors %}
+                        <ul>
+                            {% for error in form.date_from.errors %}
+                            <li> {{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    {{ form.date_to.label(for="date_to", class="form-label")}}
+                    {{ form.date_to(id="date_to", class="form-control")}}
+                    <div class="invalid-feedback">
+                        {% if form.date_to.errors %}
+                        <ul>
+                            {% for error in form.date_to.errors %}
+                            <li> {{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <label for=""></label>
+                    {{ form.submit(class="form-control btn btn-primary")}}
+                </div>
+            </form>
+        </div>
+        <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4">
+
+
+        </div>
+    </div>
+
+    <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
+        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Employees</h3>
+        <table class="table" id="attendanceTable">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Employee</th>
+                    {% for date in dates %}
+                    <th scope="col" data-id="{{date}}">
+                        {{ date}}
+                    </th>
+                    {% endfor %}
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for employee in employees %}
+
+                <tr>
+                    <td scope="row" class="emp" data-employee_id="{{employee[0]}}">{{employee[7]}} {{employee[6]}}</td>
+
+                    {% for date in dates %}
+                    <td scope="col">
+                        <!--<span><button type="button" class="addUpdateAtt btn btn-success" data-date="{{date}}"
+                                data-employee_id="{{employee[0]}}">+</button></span>-->
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+        </footer>
+    </div>
+
+</div>
+</main>
+
+<script>
+
+    function populateAttendanceTable(employee_id, employee_name, employee_date, html) {
+
+        // var employee_date = '23.2.2019';
+        // var employee_name = 'Employee 3';
+        var columnIndex = null;
+        var rowIndex = null;
+
+        // Find the corresponding column index
+        $('#attendanceTable tr:first th').each(function (index) {
+            if ($(this).text().trim() === employee_date) {
+                columnIndex = index;
+            }
+        });
+
+        // Find the row index
+        // $('#attendanceTable tr:gt(0) th.emp').each(function () {
+        //     var row = $(this).closest('tr');
+        //     if ($(this).text() === employee_name) {
+        //         rowIndex = $('#attendanceTable tr').index(row);
+        //     }
+        // });
+        var row = $('#attendanceTable tr td[data-employee_id="' + employee_id + '"]');
+        console.log('#attendanceTable tr td[data-employee_id="' + employee_id + '"]');
+        row = row.closest('tr');
+        rowIndex = $('#attendanceTable tr').index(row);
+        //console.log(row.);
+
+        console.log("Column Index:", columnIndex);
+        console.log("Row Index:", rowIndex);
+
+        // Select the table row at index X
+        var $row = $('#attendanceTable tr:eq(' + rowIndex + ')');
+        // Find the table cell (td) at index Y within the selected row
+        var $cell = $row.find('td:eq(' + columnIndex + ')');
+        // Set the employee's information
+        $cell.html(html);
+    }
+
+    $(document).ready(function () {
+
+        var datesList = {{ dates | tojson
+    }};
+    if (datesList.length == 0) {
+        //$('#date_from').val = '2024-01-01';
+        //("here");
+    }
+
+    var employee_date = null;
+    var employee_name = null;
+    var employee_id = null;
+    var html = '';
+    {%for employee in employees %}
+    {%if employee[10] %}
+
+    var employee_name = '{{employee[7]}}' + ' ' + '{{employee[6]}}';
+    var employee_date = '{{ employee[10][0][2]}}';
+    var employee_id = '{{employee[0]}}';
+    console.log(employee_date);
+    console.log(employee_name);
+    html = '<span class="badge bg-primary">Day Hours : {{employee[10][0][3]}}</span><br/><span class="badge bg-warning text-dak">Day Hours : {{employee[10][0][4]}}</span>'
+    populateAttendanceTable(employee_id, employee_name, employee_date, html);
+
+    {% endif %}
+    {% endfor %}
+        //for (let i = 0; i < employees.length; i++) {
+        //console.log(employees[i][10]);
+        // if (employees[i][10].length > 0) {
+        //     employee_name = employees[i][7] + ' ' + employees[i][6];
+
+        //     console.log(JSON.parse(employees[i][10][0][2]));
+
+        //     //employee_date = new Date(JSON.parse(employees[i][10][2]));
+        //     alert(employee_name);
+        //     alert(employee_date);
+        // }
+        //}
+
+
+
+        // $('#attendanceTable').on('click', '.addUpdateAtt', function () {
+        //     $('#addAttendance').modal('show');
+        // });
+    });
+
+
+</script>
+
+{% endblock %}
