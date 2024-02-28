@@ -1,6 +1,7 @@
 # dashboard.py
 
 from models import mysql
+from flask import Flask,  render_template, redirect, url_for
 
 def dashboard(session):
     user = None
@@ -185,6 +186,8 @@ WHERE
             #print("employee")
             cursor.execute("SELECT * FROM attendance WHERE employee_id=%s", (employee_id,))
             all_attendance = cursor.fetchall()
+            
+
 
         cursor.close()
         # print(logged_in_employee)

@@ -2,6 +2,17 @@
 {% block content %}
 
 <main class="form-signin w-100 m-auto">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
     <form action="/login" method="POST">
         {{ form.hidden_tag() }}
         <a href="{{ url_for('index') }}"><img class="mb-4 mx-auto d-block"

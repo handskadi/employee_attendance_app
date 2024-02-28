@@ -1,5 +1,10 @@
 {% extends 'elements/dashboard_app.html' %}
 {% block content %}
+<style>
+    table#attendanceTable td {
+        border: 1px solid #f3f5f7;
+    }
+</style>
 
 <!-- Divider between Sidebar and Content -->
 <div class="b-example-divider b-example-vr"></div>
@@ -30,9 +35,10 @@
 
     <!-- Content Heading -->
     <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
-        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance</h3>
-        <div class="row">
-            <form method="post" action="/attendances">
+        <h3 style="text-align: center;padding-bottom: 10px; padding-top: 5px;">Attendance</h3>
+        <form method="post" action="/attendances">
+            <div class="row">
+
                 <div class="col-sm-4">
                     {{ form.date_from.label(for="date_from", class="form-label")}}
                     {{ form.date_from(id="date_from", class="form-control")}}
@@ -65,120 +71,119 @@
                     <label for=""></label>
                     {{ form.submit(class="form-control btn btn-primary",id="displayAtt")}}
                 </div>
-            </form>
-        </div>
-        <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4">
-
-
-        </div>
+        </form>
     </div>
+    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4">
+        <br>
+    </div>
+</div>
 
-    <div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
-        <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance Sheet</h3>
-        <table class="table" id="attendanceTable">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">Employee</th>
-                    {% for date in dates %}
-                    <th scope="col" data-id="{{date}}">
-                        {{ date}}
-                    </th>
-                    {% endfor %}
-
-                </tr>
-            </thead>
-            <tbody>
-
-                {% for employee in employees %}
-
-                <tr>
-                    <td scope="row" class="emp" data-employee_id="{{employee[0]}}">{{employee[7]}} {{employee[6]}}</td>
-
-                    {% for date in dates %}
-                    <td scope="col" data-date="{{date}}" data-employee_id="{{employee[0]}}"
-                        data-employee_name="{{employee[7]}} {{employee[6]}}">
-                        <!--<span><button type="button" class="addUpdateAtt btn btn-success" data-date="{{date}}"
-                                data-employee_id="{{employee[0]}}">+</button></span>-->
-                    </td>
-                    {% endfor %}
-                </tr>
+<div class="text-bg-light" style="padding:20px 10px; margin-top:10px; border-radius: 20px;">
+    <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance Sheet</h3>
+    <table class="table" id="attendanceTable">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Employee</th>
+                {% for date in dates %}
+                <th scope="col" data-id="{{date}}">
+                    {{ date}}
+                </th>
                 {% endfor %}
 
-            </tbody>
-        </table>
-    </div>
-    <!-- modal of creation and update-->
-    <!-- Bootstrap Modal -->
-    <div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="attendanceModalLabel">Update Attendance</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="attendanceForm">
-                        <div class="form-group">
-                            <!--<label for="employeeId">Employee ID</label>-->
-                            <input type="hidden" class="form-control" id="attendanceId" name="attendanceId">
-                            <input type="hidden" class="form-control" id="employeeId" name="employeeId">
-                        </div>
-                        <div class="form-group">
-                            <label for="employeeName">Employee Name</label>
-                            <input type="text" class="form-control" id="employeeName" name="employeeName" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="attendanceDate">Attendance Date</label>
-                            <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
-                        </div>
-                        <div class="form-group">
-                            <label for="day_shift_hours">Day Shift Hours</label>
-                            <input class="form-control" name="day_shift_hours" id="day_shift_hours" type="text"
-                                pattern="[0-9]*" inputmode="numeric">
-                        </div>
-                        <div class="form-group">
-                            <label for="night_shift_hours">Night Shift Hours</label>
-                            <input class="form-control" name="night_shift_hours" id="night_shift_hours" type="text"
-                                pattern="[0-9]*" inputmode="numeric">
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Comment</label>
-                            <input type="text" class="form-control" name="comment" id="comment">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="updateAttendanceBtn">Update Attendance</button>
-                </div>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for employee in employees %}
+
+            <tr>
+                <td scope="row" class="emp" data-employee_id="{{employee[0]}}">{{employee[7]}} {{employee[6]}}</td>
+
+                {% for date in dates %}
+                <td scope="col" data-date="{{date}}" data-employee_id="{{employee[0]}}"
+                    data-employee_name="{{employee[7]}} {{employee[6]}}">
+                    <!--<span><button type="button" class="addUpdateAtt btn btn-success" data-date="{{date}}"
+                                data-employee_id="{{employee[0]}}">+</button></span>-->
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+<!-- modal of creation and update-->
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="attendanceModalLabel">Update Attendance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="attendanceForm">
+                    <div class="form-group">
+                        <!--<label for="employeeId">Employee ID</label>-->
+                        <input type="hidden" class="form-control" id="attendanceId" name="attendanceId">
+                        <input type="hidden" class="form-control" id="employeeId" name="employeeId">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" class="form-control" id="employeeName" name="employeeName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="attendanceDate">Attendance Date</label>
+                        <input type="date" class="form-control" id="attendanceDate" name="attendanceDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="day_shift_hours">Day Shift Hours</label>
+                        <input class="form-control" name="day_shift_hours" id="day_shift_hours" type="text"
+                            pattern="[0-9]*" inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label for="night_shift_hours">Night Shift Hours</label>
+                        <input class="form-control" name="night_shift_hours" id="night_shift_hours" type="text"
+                            pattern="[0-9]*" inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Comment</label>
+                        <input type="text" class="form-control" name="comment" id="comment">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="updateAttendanceBtn">Update Attendance</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- end modal-->
-    <br>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+<!-- end modal-->
+<br>
+<!-- <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav> -->
 
-    <div class="container">
-        <footer class="py-3 my-4">
-            <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
-        </footer>
-    </div>
+<div class="container">
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">© 2024 MKweb, Inc</p>
+    </footer>
+</div>
 
 </div>
 </main>

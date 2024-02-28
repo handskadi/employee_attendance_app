@@ -2,6 +2,7 @@
 
 from models import mysql
 import bcrypt
+from flask import flash
 
 
 def handle_login(form, session, flash_message):
