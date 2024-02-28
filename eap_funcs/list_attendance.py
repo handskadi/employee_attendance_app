@@ -77,9 +77,10 @@ def list_attendance_route():
             if user_informtion[8] == 'project_manager' :      
                 print("am a PM!")      
                 cursor.execute("SELECT * FROM employee WHERE project_id=%s" , (user_informtion[5],))
-            else :
-                cursor.execute("SELECT * FROM employee")
-            # get employees assigned to this project
+            elif user_informtion[8] == 'employee' :
+                cursor.execute("SELECT * FROM employee where user_id=%s", (session['user_id'],))
+                # get employees assigned to this project
+            
             employees = cursor.fetchall()
 
             
@@ -90,7 +91,7 @@ def list_attendance_route():
                 print(attendance_list)
                 employee += ( attendance_list,)
                 list_employees.append(employee)
-            #print(list_employees)
+            print(list_employees)
             
                 # mysql.connection.commit()
                 # cursor.close()

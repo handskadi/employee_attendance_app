@@ -102,27 +102,27 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Avatar</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Project</th>
-                                <th scope="col">Manager</th>
-                                <th scope="col">Employees</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for employee_data in all_employees %}
-                            {% if employee_data[1] != session['user_id']%}
-                            {% if employee_data[8] == "project_manager" %}
+                            {% if employee_data[0] != session['user_id']%}
+
                             <tr>
                                 <th scope="row">{{ employee_data[0] }}</th>
                                 <td><img src="{{ url_for('static', filename='uploads/' + employee_data[9]) }}"
                                         alt="{{ employee_data[6] }} Employee" class="rounded-circle"
                                         title="{{ employee_data[7] }} Photo" width="50" height="50" />
                                 </td>
-                                <td>{{ employee_data[11] }}</td>
+                                <td>{{ employee_data[7] }} {{ employee_data[6] }}</td>
                                 <td>{{ employee_data[10] }}</td>
-                                <td>250</td>
+                                <td></td>
                             </tr>
                             {% endif %}
-                            {% endif %}
+
                             {% endfor %}
                         </tbody>
                     </table>

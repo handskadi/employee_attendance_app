@@ -7,17 +7,20 @@ import datetime
 
 def get_attendance_route():
     cursor = mysql.connection.cursor()
-    
+    role = 'employee'
     #retrieve attendance id from request : 
     attendance_id = request.form['attendance_id']
-    print(attendance_id)
-
-    cursor.execute("SELECT a.*,CONCAT(e.lastname,' ', e.firstname) FROM attendance a LEFT JOIN employee e on a.employee_id = e.employee_id WHERE attendance_id=%s ", (attendance_id,))
-    attendance = cursor.fetchone()
-    #print(attendance)
-    attendance += (attendance[2].strftime('%Y-%m-%d'),)
     
+    user_id = session['user_id']
     if 'user_id' in session :
+        # cursor.execute("SELECT role from employee where user_id=%s",(user_id,))
+        # role = cursor.fetchone()
+       
+        cursor.execute("SELECT a.*,CONCAT(e.lastname,' ', e.firstname) FROM attendance a LEFT JOIN employee e on a.employee_id = e.employee_id WHERE attendance_id=%s ", (attendance_id,))
+        attendance = cursor.fetchone()
+        #print(attendance)
+        attendance += (attendance[2].strftime('%Y-%m-%d'),)
+        
         return jsonify(attendance)
     return redirect(url_for('login'))
 

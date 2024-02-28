@@ -240,10 +240,14 @@
 
         // Format the date as YYYY-MM-DD (e.g., 2024-02-01)
         var today = currentDate.toISOString().slice(0, 10);
+        var first = currentDate.getDate() - currentDate.getDay(); // First day is the day of the month - the day of the week
+        var last = first + 6; // last day is the first day + 6
 
+        var firstday = new Date(currentDate.setDate(first)).toISOString().slice(0, 10);
+        var lastday = new Date(currentDate.setDate(last)).toISOString().slice(0, 10);
         //("here");
-        $('#date_from').val(today);
-        $('#date_to').val(today);
+        $('#date_from').val(firstday);
+        $('#date_to').val(lastday);
         $('#displayAtt').click();
     }
 
