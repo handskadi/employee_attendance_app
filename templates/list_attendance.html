@@ -1,6 +1,10 @@
 {% extends 'elements/dashboard_app.html' %}
 {% block content %}
-
+<style>
+    table#attendanceTable td {
+    border: 1px solid #d3e7ff;
+}
+</style>
 <!-- Divider between Sidebar and Content -->
 <div class="b-example-divider b-example-vr"></div>
 
@@ -31,9 +35,10 @@
     <!-- Content Heading -->
     <div class="text-bg-light" style="padding:20px 20px; border-radius: 20px;">
         <h3 style="text-align: center;padding-bottom: 30px; padding-top: 5px;">Attendance</h3>
-        <div class="row">
+        
             <form method="post" action="/attendances">
-                <div class="col-sm-4">
+                <div class="row">
+                <div class="col-sm-5">
                     {{ form.date_from.label(for="date_from", class="form-label")}}
                     {{ form.date_from(id="date_from", class="form-control")}}
                     <div class="invalid-feedback">
@@ -47,7 +52,7 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     {{ form.date_to.label(for="date_to", class="form-label")}}
                     {{ form.date_to(id="date_to", class="form-control")}}
                     <div class="invalid-feedback">
@@ -61,12 +66,13 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <label for=""></label>
                     {{ form.submit(class="form-control btn btn-primary",id="displayAtt")}}
                 </div>
+            </div>
             </form>
-        </div>
+        
         <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4">
 
 
