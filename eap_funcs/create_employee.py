@@ -61,7 +61,7 @@ def create_employee_route(app):
             mysql.connection.commit()
 
 
-            return redirect(url_for('employees'))
+            return redirect(url_for('list_employees'))
 
         return render_template('create_employee.html', form=form, user=user, logged_in_employee=logged_in_employee)
     return redirect(url_for('login'))

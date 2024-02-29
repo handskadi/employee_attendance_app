@@ -83,6 +83,6 @@ def update_employee_route(employee_id):
         cursor.close()
 
         flash("Employee details updated successfully")
-        return redirect(url_for('employees', employee_id=employee_id))
+        return redirect(url_for('list_employees', employee_id=employee_id))
 
     return render_template('update_employee.html', form=form, employee_id=employee_id, updated__employee=updated__employee )

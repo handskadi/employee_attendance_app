@@ -106,6 +106,20 @@
         .img-account-profile {
             height: 10rem;
         }
+
+        /* Toggle Menu Side bar*/
+        /* Custom CSS for the sidebar */
+    #sidebar {
+        transition: margin-left 0.3s;
+    }
+
+    @media (min-width: 768px) {
+        #sidebar.collapse {
+            display: flex;
+            flex-direction: column;
+            width: 70px; /* Adjust the collapsed sidebar width */
+        }
+    }
     </style>
 
 
@@ -216,9 +230,48 @@
         </symbol>
 
     </svg>
+    <!-- Mobile Nav Bar -->
+    <header id="mk-mobile" class="navbar navbar-expand-md navbar-light bg-light d-md-none">
+        <div class="px-3 py-2 bg-dark text-white">
+          <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+              <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+              </a>
+    
+              <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                <li>
+                  <a href="/dashboard" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a href="/attendances" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg>
+                    Attendance
+                  </a>
+                </li>
+                <li>
+                  <a href="/projects" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"></use></svg>
+                    Projects
+                  </a>
+                </li>
+                <li>
+                  <a href="/employees" class="nav-link text-white">
+                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
+                    Employees
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
     <main class="d-flex flex-nowrap">
         <!-- Sidebar Section -->
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary mk_desktop navbar navbar-expand-md navbar-light bg-light d-none d-md-block"  id="mk-desktop" style="width: 280px;">
             <!-- Logo/Brand -->
             <a href="/"
                 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -337,6 +390,8 @@
             {% endif %}
 
         </div>
+
+        
 
         <script>
             // Function to add highlight to the active page link
