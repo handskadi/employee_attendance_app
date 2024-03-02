@@ -7,7 +7,6 @@ def dashboard(session):
     user = None
     user_id = session['user_id']
     cursor = mysql.connection.cursor()
-    print(session['user_id'])
     cursor.execute("SELECT * FROM user where user_id=%s", (user_id,))
     user = cursor.fetchone()
     all_employees = []

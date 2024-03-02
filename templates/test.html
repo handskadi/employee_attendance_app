@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Python Test Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <h1>Welcome to Python & Flask</h1>
+                <ul>
+                    <li>Home</li>
+                    <li>Features</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </header>
+        <div class="main">
+
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+                {% for a_user in all_users%}
+                <tr>
+                    <th>{{a_user.username}}</th>
+                    <th>{{a_user.email}}</th>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <footer>
+            @ Copyright - Mkweb - 2024
+        </footer>
+    </body>
+</html>
